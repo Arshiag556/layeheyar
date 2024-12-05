@@ -17,11 +17,7 @@
 
 - **Python 3.x**  
 - **Django 3.x**  
-- **Database (SQLite, PostgreSQL یا هر دیتابیس دیگر)**
+- **Database (SQLite)**
 
-## راه‌اندازی پروژه
 
-1. ابتدا کد پروژه را از گیت‌هاب کلون کنید:
 
-   ```bash
-   git clone https://github.com/your-username/project-name.git
