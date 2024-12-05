@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ارتباط با ما</title>
+    <!-- آیکون ها -->
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f6fa;
+            direction: rtl;
+            display: flex;
+
+            height: 100vh;
+        }
+
+.main-content{
+    width: 100%;
+            display: flex;
+
+    justify-content: center;
+     justify-items: center;
+
+}
+        .contact-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+
+
+        }
+
+        .contact-header {
+            background-color: #6c5ce7;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-header h1 {
+            font-size: 24px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #6c5ce7;
+            outline: none;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form input[type="submit"] {
+            background-color: #6c5ce7;
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form input[type="submit"]:hover {
+            background-color: #5e4bc3;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .contact-info p {
+            font-size: 16px;
+            color: #636e72;
+        }
+
+        .contact-info .icon {
+            font-size: 20px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+{% include 'pannel/menu.html' %}
+
+<main class="main-content">
+    <div class="contact-container">
+        <div class="contact-header">
+            <h1>ارتباط با ما</h1>
+        </div>
+
+        <!-- فرم تماس -->
+        <form method="post" class="contact-form">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="نام شما" required>
+            <input type="email" name="email" placeholder="ایمیل شما" required>
+            <input type="text" name="subject" placeholder="موضوع" required>
+            <textarea name="message" placeholder="پیام شما" required></textarea>
+            <input type="submit" value="ارسال پیام">
+        </form>
+
+        <!-- اطلاعات تماس -->
+        <div class="contact-info">
+            <p><span class="icon ion-ios-call"></span> شماره تماس: 123456789</p>
+            <p><span class="icon ion-ios-mail"></span> ایمیل: info@example.com</p>
+            <p><span class="icon ion-ios-pin"></span> آدرس: تهران، خیابان انقلاب، ساختمان شماره 12</p>
+        </div>
+    </div>
+</main>
+</body>
+</html>

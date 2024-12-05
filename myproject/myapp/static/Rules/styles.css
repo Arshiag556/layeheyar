@@ -1,0 +1,79 @@
+body {
+    font-family: 'Vazir', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* تغییر به flex-start برای اسکرول */
+    min-height: 100vh; /* تغییر به min-height برای فعال‌سازی اسکرول */
+}
+
+.container {
+    width: 100%;
+    max-width: 800px; /* اضافه کردن حداکثر عرض برای محتوای محدود */
+    display: flex;
+    flex-direction: column; /* تنظیم فلکس‌باکس به ستون برای محتوای صفحه */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 0;
+
+}
+
+.rules_container{
+    padding: 10%;
+
+}
+h1, h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 900;
+    margin-right: 0.7vw;
+    font-size: 1.5em;
+    text-align: right;
+}
+
+p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: right;
+    font-weight: 500;
+}
+
+ul {
+    list-style-type: square;
+    color: #666;
+    text-align: left;
+    padding-right: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+    text-align: right;
+    margin-right: 1.2vw;
+}
+
+label {
+    display: block;
+    margin: 15px 0 5px;
+    color: #333;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

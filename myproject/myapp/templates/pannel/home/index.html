@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد تم روشن</title>
+    <!-- آیکون ها -->
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f6fa; /* رنگ زمینه */
+            color: #2d3436; /* رنگ متن */
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            direction: rtl; /* راست به چپ */
+        }
+
+        .main-content {
+            margin-right: 240px;
+            padding: 30px;
+            width: calc(100% - 240px);
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            grid-column: span 2;
+            background-color: #74b9ff; /* رنگ هدر */
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            color: #ffffff; /* رنگ عنوان */
+        }
+
+        .header .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        .card {
+            background-color: #ffffff; /* رنگ کارت‌ها */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card i {
+            font-size: 3rem;
+            color: #0984e3; /* رنگ آیکون‌ها */
+            margin-bottom: 15px;
+        }
+        .card a{
+            text-decoration: none;
+            text-align: center;
+        }
+        .card h3 {
+            font-size: 1.4rem;
+            color: #636e72; /* رنگ عنوان کارت‌ها */
+            margin-bottom: 10px;
+        }
+
+        .card  p {
+            font-size: 0.9rem;
+            color: #636e72;
+        }
+
+        .stats-card {
+            background-color: #dfe6e9; /* رنگ کارت‌های آماری */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-card h4 {
+            color: #00b894; /* رنگ عنوان آماری */
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .stats-card p {
+            font-size: 2.5rem;
+            color: #2d3436; /* رنگ اعداد */
+            font-weight: bold;
+        }
+
+        .notifications {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .notifications h4 {
+            font-size: 1.3rem;
+            color: #e17055;
+            margin-bottom: 15px;
+        }
+
+        .notifications ul {
+            list-style: none;
+        }
+
+        .notifications ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #dcdde1;
+            color: #2d3436;
+        }
+
+        .notifications ul li:last-child {
+            border-bottom: none;
+        }
+
+        .notifications ul li i {
+            color: #fdcb6e; /* رنگ آیکون اعلان‌ها */
+            margin-left: 8px;
+        }
+
+        .subscription-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .subscription-container h2 {
+            font-size: 1.6rem;
+            color: #2d3436;
+            margin-bottom: 20px;
+        }
+
+        .platform-btns {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .platform-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            width: 70px;
+            height: 70px;
+        }
+
+        .platform-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .platform-btn i {
+            font-size: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+
+
+        }
+
+        input[type="url"] {
+            width: 100%;
+
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #fafafa;
+        }
+
+        button.submit-btn {
+            background-color: #00b894;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        button.submit-btn:hover {
+            background-color: #636e72;
+        }
+
+        /* بخش قوانین */
+        .terms-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .terms-container h3 {
+            font-size: 1.4rem;
+            color: #2d3436;
+            margin-bottom: 20px;
+        }
+
+        .download-btn {
+            background-color: #ff6348;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .download-btn:hover {
+            background-color: #e74c3c;
+        }
+
+        /* استایل‌های ریسپانسیو */
+        @media (max-width: 992px) {
+            .main-content {
+margin: 0;
+                width: 100%;
+
+
+                position: relative;
+display: grid;
+
+            }
+
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+
+            .card {
+                padding: 15px;
+            }
+
+            .card i {
+                font-size: 2.5rem;
+            }
+
+            .stats-card h4, .stats-card p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 10px;
+            }
+
+            .card {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 10px;
+            }
+
+            .card i {
+                font-size: 2rem;
+                margin-bottom: 0;
+            }
+
+            .card h3 {
+                font-size: 1.1rem;
+            }
+
+            .card p {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+{% include 'pannel/menu.html' %}
+
+<div class="main-content">
+    <!-- هدر داشبورد -->
+    <div class="header">
+        <h1>{{ user.name }} {{ user.family }}</h1>
+        <div class="user-info">
+
+            <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture"> <!-- تصویر پروفایل -->
+        </div>
+    </div>
+
+    <!-- کارت‌های آماری -->
+    <div class="stats-card">
+        <h4>لایحه های تایید شده</h4>
+        <p>{{ approved_lawmakers }}</p>
+    </div>
+
+    <div class="stats-card">
+        <h4>لایحه‌های رد شده</h4>
+        <p>{{ rejected_lawmakers }}</p>
+    </div>
+
+    <div class="stats-card">
+        <h4>تیکت ها</h4>
+        <p>{{ tickets_count }}</p>
+    </div>
+
+    <div class="card">
+
+            <i class="icon ion-md-clipboard"></i>
+             <a href="{% url 'app1:council' user_id=user.id %}">
+            <h3>لایحه‌های جدید</h3>
+            <p>شورای نگهبان</p>
+        </a>
+    </div>
+    <div class="card">
+
+            <i class="icon ion-md-clipboard"></i>
+         <a href="{% url 'app1:assembly' user_id=user.id %}">
+            <h3>لایحه‌های جدید</h3>
+            <p>مجلس</p>
+        </a>
+    </div>
+    <div class="card">
+        <i class="icon ion-md-settings"></i>
+             <a href="{% url 'profile' %}">
+             <h3>پروفایل</h3>
+        <p>پیکربندی سیستم</p>
+        </a>
+
+    </div>
+
+    <!-- اعلان‌ها -->
+    <div class="notifications">
+        <h4>اعلان‌ها</h4>
+        <ul>
+            {% for notification in notifications %}
+                <li><i class="icon ion-md-notifications"></i> {{ notification.message }}</li>
+            {% empty %}
+                <li>هیچ اعلان جدیدی وجود ندارد</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+</body>
+</html>

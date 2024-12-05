@@ -1,0 +1,341 @@
+{% load jalali_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تکمیل پروفایل</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
+
+    <style>
+        body {
+            font-family: "Roboto", sans-serif;
+            margin: 0;
+            text-align: center;
+            padding: 0;
+            background-color: #f4f4f4;
+            direction: rtl;
+            display: flex;
+            height: 100vh;
+            font-weight: bolder;
+
+            box-sizing: border-box;
+            justify-content: center;
+            align-items: center;
+        }
+
+        label {
+
+            position: relative;
+
+        }
+
+        input {
+            padding: 0.5vw;
+            width: 70%;
+            text-align: right;
+            margin-top: .5vw;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #b8c1ec;
+            display: flex;
+            align-items: center;
+            transition: 0.3s;
+            text-align: right;
+            width: 100%;
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1;
+            background-color: #444;
+        }
+
+        .sidebar ion-icon {
+            margin-left: 10px;
+            font-size: 24px;
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 36px;
+            color: #b8c1ec;
+            cursor: pointer;
+        }
+
+        .openbtn {
+            font-size: 30px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            transition: 0.3s;
+
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+
+        .openbtn:hover {
+            background-color: #555;
+        }
+
+        #main {
+            transition: margin-right .5s;
+            padding: 16px;
+            width: calc(100% - 250px); /* Adjust for sidebar width */
+            box-sizing: border-box;
+            margin-right: 0;
+        }
+
+        .profile-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+
+            box-sizing: border-box;
+        }
+
+        .profile {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 800px; /* Adjusted width for more fields */
+            box-sizing: border-box;
+        }
+
+        .profile img {
+            width: 80px; /* Adjusted size */
+            height: 80px; /* Adjusted size */
+            border-radius: 50%;
+            margin-bottom: 10px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .profile h3 {
+            margin: 5px 0;
+            color: #333;
+            text-align: center;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .profile-item {
+            display: flex;
+            align-items: center;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .profile-item ion-icon {
+            margin-left: 10px;
+            color: #333;
+        }
+
+        .profile-item input {
+            border: none;
+            background: none;
+            color: #333;
+            width: 100%;
+            font-size: 16px;
+            outline: none;
+            text-align: right;
+        }
+
+        .profile-item img {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .edit-button {
+            margin-top: 10px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            text-align: center;
+        }
+
+        .edit-button:hover {
+            background-color: #555;
+        }
+
+        .profilemen img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        .profilemen:hover {
+            color: #f1f1f1;
+            background-color: #444;
+        }
+
+        .selfie-instruction {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            text-align: right;
+        }
+
+        .selfie-instruction h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .selfie-instruction p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .selfie-instruction blockquote {
+            font-size: 18px;
+            font-weight: bold;
+            color: #222;
+            background-color: #eee;
+            padding: 10px;
+            border-left: 5px solid #ccc;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .selfie-instruction blockquote p {
+            margin: 0;
+        }
+
+        .selfie-instruction p:last-child {
+            margin-bottom: 0;
+        }
+
+
+        @media screen and (max-height: 450px) {
+            .sidebar {
+                padding-top: 15px;
+            }
+
+            .sidebar a {
+                font-size: 18px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: 100%;
+            }
+
+            #main {
+                width: 100%;
+            }
+
+            .openbtn {
+                position: fixed;
+                right: 10px;
+                top: 10px;
+                z-index: 2;
+            }
+        }
+    </style>
+</head>
+<body>
+{% include 'pannel/menu.html' %}
+
+<div class="profile-container">
+    <div class="profile">
+        <h3>تکمیل پروفایل</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table class="form-table" style="width: 100%;">
+                {{ form.as_table }}
+
+            </table>
+
+            <!-- اضافه کردن توضیحات مربوط به عکس سلفی -->
+            <div class="selfie-instruction">
+                <h4>راهنمای ارسال عکس سلفی</h4>
+                <p>لطفاً یک عکس سلفی از خودتان بگیرید و در دستتان یک کاغذ و کارت ملی نگه دارید که روی آن نوشته شده
+                    باشد:</p>
+                <blockquote>
+                    <p>«من با رضایت کامل در این سامانه ثبت‌نام کرده‌ام.»</p>
+                </blockquote>
+                <p>این عکس برای تایید هویت شما مورد نیاز است. توجه داشته باشید که چهره و نوشته باید به وضوح قابل مشاهده
+                    باشند.</p>
+            </div>
+
+            <button type="submit" class="edit-button">ذخیره تغییرات</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    function openNav() {
+        document.getElementById("sidebar").style.width = "250px";
+        document.getElementById("main").style.marginRight = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("sidebar").style.width = "0";
+        document.getElementById("main").style.marginRight = "0";
+    }
+
+</script>
+
+
+</body>
+</html>

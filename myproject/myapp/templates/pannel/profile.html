@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل کاربری || پروفایل</title>
+    <!-- آیکون ها -->
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f6fa;
+            direction: rtl;
+            display: flex;
+            height: 100vh;
+        }
+
+        .main-content {
+            margin-right: 250px;
+            padding: 20px;
+            width: 100%;
+            transition: margin-right 0.3s;
+        }
+
+        .dashboard-header {
+            background-color: #6c5ce7;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .user-profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-left: 20px;
+            border: 3px solid #6c5ce7;
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-details h2 {
+            color: #2d3436;
+            margin-bottom: 10px;
+        }
+
+        .user-details p {
+            font-size: 16px;
+            color: #636e72;
+            margin-bottom: 5px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .buttons a {
+            background-color: #00b894;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .buttons a.edit-profile {
+            background-color: #0984e3;
+        }
+
+        .buttons a:hover {
+            background-color: #636e72;
+        }
+
+        /* استایل فرم */
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: right;
+            font-size: 16px;
+            color: #636e72;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+ul{
+    list-style-type: none;
+}
+        input[type="text"], input[type="email"], input[type="password"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #636e72;
+            background-color: #fafafa;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
+            border-color: #6c5ce7;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background-color: #00b894;
+            color: #ffffff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #636e72;
+        }
+@media (max-width: 992px) {
+
+.main-content{
+    margin: 0;
+     padding: 10px;
+}
+}
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+            .main-content {
+                margin-right: 0;
+                padding: 10px;
+            }
+
+            .user-profile {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .user-profile img {
+                margin-left: 0;
+                margin-bottom: 20px;
+            }
+
+            table th, table td {
+                font-size: 14px;
+            }
+
+            input[type="submit"] {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+{% include 'pannel/menu.html' %}
+
+<!-- محتوای اصلی -->
+<main class="main-content">
+
+
+    <!-- بخش پروفایل کاربر -->
+    <div class="user-profile">
+
+        {% if user.profile_picture %}
+            <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+        {% else %}
+            <img src="/path/to/default/image.jpg" alt="Default Profile Picture">
+        {% endif %}
+        <div class="user-details">
+            <h2>{{ user.name }} {{ user.family }}</h2>
+
+            <p>شماره تماس: {{ user.phone_number }}</p>
+            {% if  user.is_verified == "1" %}
+                <p>وضعیت حساب: احراز هویت نشده</p>
+
+            {% endif %}
+            {% if   user.is_verified == "2" %}
+                <p>وضعیت حساب: درحال بررسی</p>
+
+            {% endif %}
+            {% if  user.is_verified == "3" %}
+                <p>وضعیت حساب: نیاز به تغییرات</p>
+
+            {% endif %}
+            {% if  user.is_verified == "4" %}
+                <p>وضعیت حساب: <span style="color: #45a049">تایید شد</span></p>
+
+            {% endif %}
+
+
+            <div class="buttons">
+
+
+
+
+                    <a onclick="document.getElementById('compelet_profile').style.display='block'">تغییر پروفایل</a>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- بخش فرم -->
+    <div class="user-profile">
+        <div class="row">
+            <div style="display: none" id="compelet_profile" class="card">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        <h2>تکمیل پروقایل</h2>
+                        <br>
+                        {% csrf_token %}
+                        <table>
+
+
+                            {{ form.as_table }}
+                        </table>
+                        <input type="submit" value="ثبت تغییرات">
+                    </form>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+</main>
+
+</body>
+</html>

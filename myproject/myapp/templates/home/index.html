@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحه اصلی - شورای نگهبان</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <head>
+        <h1 class="h1head">شورای نکهبان محلس</h1>
+    </head>
+    <!-- بخش‌ها -->
+    <div class="container">
+        <div class="box" onclick="showMore('about')">
+            <h2>درباره ما</h2>
+            <p>معرفی شورای نگهبان و وظایف آن در تدوین و بررسی لوایح.</p>
+        </div>
+        
+        <div class="box" onclick="showMore('services')">
+            <h2>خدمات ما</h2>
+            <p>بررسی لوایح، مطالعات حقوقی و آموزش قوانین.</p>
+        </div>
+        
+        <div class="box" onclick="showMore('news')">
+            <h2>اخبار و مقالات</h2>
+            <p>جدیدترین اخبار و مقالات حوزه قوانین و لوایح.</p>
+        </div>
+        
+        <div class="box" onclick="showMore('membership')">
+            <h2>عضویت</h2>
+            <p>درخواست عضویت در تیم لایحه نویسی.</p>
+        </div>
+        
+        <div class="box" onclick="showMore('contact')">
+            <h2>تماس با ما</h2>
+            <p>آدرس و شماره تماس ما برای ارتباط.</p>
+        </div>
+    </div>
+
+    <!-- مودال برای اطلاعات بیشتر -->
+    <div id="moreModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalText"></p>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    {% load static %}
+    {% load widget_tweaks %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css"
+        integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N"
+        crossorigin="anonymous">
+    <link href="{% static 'loginandsingup/login.css' %}" rel="stylesheet">
+    <title>ورود</title>
+       <style>
+        body {
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-card {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .login-card h2 {
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .btn-primary {
+            width: 100%;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .gologin {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .gologin:hover {
+            text-decoration: underline;
+        }
+
+        .form-group input {
+            border-radius: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-card">
+        <form method="post" class="needs-validation">
+            {% csrf_token %}
+            <h2 class="text-center">ورود</h2>
+            <div class="form-group mb-3">
+                {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+                    {{ field|add_class:"form-control" }}
+                    {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% if messages %}
+            <div class="messages mb-3">
+                {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">ورود</button>
+            <a href="{% url 'singup' %}" class="gologin">ایجاد حساب</a>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFu8GfKcKomBcKCFFOHKZQopBJnz5SmXKp4ycMroU1qE6r23xofpJZl2Q"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

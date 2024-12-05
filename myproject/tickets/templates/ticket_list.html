@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لیست تیکت‌ها</title>
+    <!-- آیکون‌ها -->
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+             font-family: 'Arial', sans-serif;
+                background-color: #f5f6fa;
+                direction: rtl;
+                display: flex;
+                height: 100vh;
+        }
+
+        .main-content {
+            margin-right: 250px;
+            padding: 20px;
+            width: 100%;
+            transition: margin-right 0.3s;
+
+        }
+
+        .dashboard-header {
+            background-color: #6c5ce7;
+            color: #fff;
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 22px;
+
+        }
+
+        .new-ticket-btn {
+            background-color: #00b894;
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .new-ticket-btn i {
+            margin-left: 5px;
+            font-size: 20px;
+        }
+
+        .new-ticket-btn:hover {
+            background-color: #019d73;
+        }
+
+        .ticket-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .ticket-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .ticket-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .ticket-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+
+        .ticket-date {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .ticket-status {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: 8px;
+        }
+
+        .status-open {
+            background-color: #27ae60;
+        }
+
+        .status-in-progress {
+            background-color: #f39c12;
+        }
+
+        .status-closed {
+            background-color: #e74c3c;
+        }
+
+        .ticket-description {
+            font-size: 15px;
+            color: #2c3e50;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .ticket-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: #6c5ce7;
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #5a4bbf;
+        }
+
+        .iconchat {
+            color: #6c5ce7;
+            font-size: 24px;
+        }
+@media (max-width: 992px) {
+
+.main-content{
+    margin: 0;
+     padding: 10px;
+}
+}
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+
+            .main-content{
+                margin-right: 0;
+                display: flex;
+                flex-direction: column;
+
+
+            }
+            .dashboard-header {
+
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+{% include 'pannel/menu.html' %}
+
+<!-- محتوای اصلی -->
+<main class="main-content">
+    <div class="dashboard-header">
+        <h1>لیست تیکت‌ها</h1>
+        <a href="{% url 'tickets:create_ticket' %}" class="new-ticket-btn">
+            <i class="ion-md-add-circle"></i> ایجاد تیکت جدید
+        </a>
+    </div>
+
+    <!-- لیست تیکت‌ها -->
+    <div class="ticket-list">
+        {% if tickets %}
+            {% for ticket in tickets %}
+                <div class="ticket-card">
+                    <div>
+                        <div class="ticket-title">{{ ticket.title }}</div>
+                        <div class="ticket-date">تاریخ: {{ ticket.created_at|date:"Y/m/d" }}</div>
+                        <div class="ticket-status">
+                    <span class="status-indicator
+                        {% if ticket.status == 'open' %}status-open{% elif ticket.status == 'in_progress' %}status-in-progress{% else %}status-closed{% endif %}"></span>
+                            {% if ticket.status == 'open' %}باز{% elif ticket.status == 'in_progress' %}در حال
+                                بررسی{% else %}بسته{% endif %}
+                        </div>
+                        <p class="ticket-description">{{ ticket.description|truncatechars:100 }}</p>
+                    </div>
+                    <div class="ticket-actions">
+                        <a href="{% url 'tickets:ticket_detail' ticket.id %}" class="btn">مشاهده</a>
+                        <i class="iconchat ion-md-chatboxes"></i>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>هیچ تیکتی برای نمایش وجود ندارد.</p>
+        {% endif %}
+    </div>
+</main>
+
+</body>
+</html>

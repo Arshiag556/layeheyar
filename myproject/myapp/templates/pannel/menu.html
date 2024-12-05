@@ -1,0 +1,196 @@
+<!-- دکمه باز و بسته کردن اسلایدبار -->
+<button class="sidebar-toggle" onclick="toggleSidebar()">
+    <i class="icon ion-md-menu"></i>
+</button>
+
+<!-- اسلایدبار -->
+<aside class="sidebar" id="sidebar">
+    <!-- عکس پروفایل -->
+    <div class="profile-pic">
+        {% if user.profile_picture %}
+            <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+        {% else %}
+            <img src="/path/to/default/image.jpg" alt="Default Profile Picture">
+        {% endif %}
+    </div>
+    <h2>{{ user.name }} {{ user.family }}</h2>
+    <ul>
+        <li>
+            <a href="{% url 'home' %}">
+                <i class="icon ion-md-home"></i>
+                <span>پیشخوان</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'profile' %}">
+                <i class="icon ion-md-person"></i>
+                <span>پروفایل من</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'contact-us' %}">
+                <i class="icon ion-md-list-box"></i>
+                <span>ارتباط با ما</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'app1:council' user_id=user.id %}">
+                <i class="icon ion-md-mail"></i>
+                <span>لایحه نویسی برای شورا</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'app1:assembly' user_id=user.id %}">
+                <i class="icon ion-md-mail"></i>
+                <span>لایحه نویسی برای مجلس</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'tickets:ticket_list' %}">
+                <i class="icon ion-md-mail"></i>
+                <span>تیکت</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'logout' %}" style="color: lightpink;">
+                <i class="icon ion-md-log-out"></i>
+                <span>خروج</span>
+            </a>
+        </li>
+    </ul>
+</aside>
+
+<!-- استایل‌های مربوط به اسلایدبار -->
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        direction: rtl;
+        text-align: right;
+        margin: 0;
+        padding: 0;
+    }
+
+    .sidebar {
+        width: 250px;
+        background-color: #2d3436;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+        position: fixed;
+        height: 100%;
+        transition: transform 0.3s ease-in-out;
+        z-index: 2;
+    }
+
+    .sidebar h2 {
+        margin-bottom: 30px;
+    }
+
+    .profile-pic {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #dfe6e9;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+
+    .profile-pic img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        width: 100%;
+    }
+
+    .sidebar ul li a {
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border-bottom: 1px solid #3d3d3d;
+        transition: background 0.3s;
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+    }
+
+    .sidebar ul li:hover {
+        background-color: #636e72;
+        margin-right: 0.2vw;
+        transition: 0.4s;
+        border-radius: 0.2vw;
+
+    }
+
+    .sidebar ul li i {
+        font-size: 20px;
+        margin-left: 10px;
+    }
+
+    .sidebar ul li span {
+        flex: 1;
+    }
+
+    /* دکمه برای بستن اسلایدبار */
+    .sidebar-toggle {
+        display: none;
+    }
+
+@media (max-width: 992px) {
+
+     .sidebar {
+            transform: translateX(100%);
+        }
+          .sidebar-toggle {
+            display: block;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #2d3436;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            z-index: 3;
+            cursor: pointer;
+        }
+            .sidebar.open {
+            transform: translateX(0);
+        }
+}
+    @media (max-width: 768px) {
+
+
+        .sidebar-toggle {
+            display: block;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #2d3436;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            z-index: 3;
+            cursor: pointer;
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+        }
+    }
+</style>
+
+<!-- اسکریپت برای باز و بسته کردن اسلایدبار -->
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('open');
+    }
+</script>

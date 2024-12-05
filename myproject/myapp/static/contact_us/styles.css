@@ -1,0 +1,88 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    direction: rtl;
+}
+
+.contact-section {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+}
+.h1div{
+background-color: #ffffffdc;
+padding: 0.1vw;
+z-index: 1;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+border-radius: 0.2vw;
+}
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* استایل برای مستطیل اطلاعات تماس */
+.info-box {
+    background-color: #ffffffab;
+    padding: 30px;
+    margin-bottom: 20px;
+    z-index: 2;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-item {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-item .icon {
+    font-size: 24px;
+    margin-left: 10px;
+    color: #007BFF;
+}
+
+/* مستطیل فرم تماس */
+.form-box {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 8px;
+    height: 1.5vw;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    
+}
+textarea{
+    resize: none;
+
+
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 10px;
+    height: 2vw;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: #0056b3;
+}

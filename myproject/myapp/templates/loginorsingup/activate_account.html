@@ -1,0 +1,56 @@
+<head>
+<style>
+
+    *{
+        align-items: center;
+        justify-items: center;
+
+    }
+    img{
+        width: 8vw;
+        position: absolute;
+        align-items: center;
+        justify-items: center;
+        left:47%;
+      bottom: 31vw;
+    }
+    div{
+        text-align: center;
+        background: #E4E9F7 ;
+     padding: 9vw;
+        width: 39VW;
+margin-left: auto;
+        font-weight: bolder;
+border-radius: 1vw;
+        margin-top: 7vw;
+        margin-right: auto;
+    }
+    a{
+        background: lightblue;
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+
+        padding: 1vw 3vw;
+        position: relative;
+        top: 3vw;
+
+    }
+    H2{
+        margin-top: 1vw;
+    }
+</style>
+</head>
+{% autoescape off %}
+
+    <div>
+
+  {{ user.username }}
+
+    <br>
+      <h2>لطفآ ایمیل خود را با کلیک کردن بر روی لینک تایید کنید</H2>
+
+        <br>
+<a href=" http://{{ domain }}{% url 'activate' uidb64=uid token=token %}>">کلید کنید</a>
+    </div>
+{% endautoescape %}

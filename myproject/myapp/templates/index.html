@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    {% load static %}
+    <!-- Open Graph -->
+    <meta property="og:title" content="لایحه‌نویسی حرفه‌ای | تنظیم لوایح قانونی و خدمات حقوقی">
+    <meta property="og:description"
+          content="تنظیم لوایح قانونی، مشاوره حقوقی و خدمات تخصصی تنظیم قراردادها. با تیم وکلای مجرب ما، مسائل حقوقی خود را با اطمینان حل کنید.">
+    <meta property="og:image" content="{% static 'images/header.webp' %}">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fa_IR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="لایحه‌نویسی حرفه‌ای | خدمات حقوقی و تنظیم لوایح">
+    <meta name="twitter:description" content="تخصص ما تنظیم لوایح حقوقی و قراردادها با تیم وکلای حرفه‌ای است.">
+    <meta name="twitter:image" content="{% static 'images/header.webp' %}">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yourwebsite.com">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "LegalService",
+          "name": "لایحه‌نویسی حرفه‌ای",
+          "url": "https://yourwebsite.com",
+          "description": "تنظیم لوایح قانونی، مشاوره حقوقی و خدمات تخصصی تنظیم قراردادها.",
+          "image": "https://yourwebsite.com/static/images/header.webp",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "ایران"
+          }
+        }
+    </script>
+
+    <title>لایحه‌نویسی حرفه‌ای | خدمات حقوقی و قراردادها</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css"
+          integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'IRANSans', Arial, sans-serif;
+            line-height: 1.8;
+            color: #444;
+            background-color: #f9f9f9;
+            scroll-behavior: smooth; /* اسکرول نرم */
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('{% static "images/header.webp" %}') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 6rem 1rem;
+            border-bottom: 5px solid #1abc9c;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-top: 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background: #1abc9c;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card-body p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        footer a {
+            color: #1abc9c;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #16a085;
+        }
+    </style>
+</head>
+
+<body>
+<header class="hero">
+    <h1>لایحه‌نویسی حرفه‌ای</h1>
+    <p>تنظیم و بررسی لوایح قانونی برای تمامی نیازهای حقوقی شما</p>
+    <a href="#services" class="btn btn-success btn-lg mt-3">مشاهده خدمات</a>
+</header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">لایحه‌نویسی</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link active" href="#services">خدمات</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">درباره ما</a></li>
+
+                <li class="nav-item"><a class="nav-link" href="#faq">پرسش‌ها</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">تماس</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">ورود</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'singup' %}">ثبت‌نام</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<section id="services" class="py-5">
+    <div class="container">
+        <h2 class="section-title">خدمات ما</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card product-card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">لایحه حقوقی</h5>
+                        <p>تنظیم لوایح حقوقی و کیفری برای تمامی پرونده‌ها. تیم ما با تجربه در زمینه‌های مختلف دعاوی
+                            حقوقی، قادر است تا لوایح پیچیده‌ای را برای پرونده‌های شما تنظیم کند و از حقوق شما دفاع
+                            نماید. این خدمات شامل موارد حقوقی فردی و تجاری نیز می‌شود.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card product-card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">مشاوره حقوقی</h5>
+                        <p>مشاوره حرفه‌ای در تمامی زمینه‌های قانونی. آیا به مشاوره در مسائل حقوقی نیاز دارید؟ ما به شما
+                            کمک می‌کنیم تا بهترین تصمیمات را بگیرید. مشاوره ما شامل مسائل حقوقی، قراردادها، دعاوی و
+                            مسائل مالی می‌شود.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card product-card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">تنظیم قرارداد</h5>
+                        <p>خدمات تنظیم و بررسی قراردادهای تجاری و حقوقی. ما به شما کمک می‌کنیم تا قراردادهایی شفاف،
+                            قانونی و در راستای منافع‌تان تنظیم کنید و از بروز مشکلات قانونی جلوگیری نمایید.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="about" class="py-5">
+    <div class="container">
+        <h2 class="section-title">درباره ما</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <img src=" {% static 'images/workroom.png' %}" class="img-fluid rounded shadow"
+                     alt="خدمات تنظیم لوایح قانونی و مشاوره حقوقی">
+            </div>
+            <div class="col-md-6">
+                <p>ما یک تیم حرفه‌ای از وکلا و مشاوران حقوقی هستیم که تخصص ما در تنظیم لوایح حقوقی و کیفری، مشاوره حقوقی
+                    و تنظیم قراردادها است. با تجربه‌ای بیش از ده سال در ارائه خدمات حقوقی و قانونی، هدف ما کمک به شما در
+                    حل مسائل پیچیده حقوقی و ایجاد راه‌حل‌های قانونی است که به نفع شما باشد.</p>
+                <p>ما به‌عنوان مشاوران حقوقی، به شما کمک می‌کنیم تا در تمامی مراحل تنظیم قراردادها و لوایح قانونی از
+                    بهترین مشاوره‌ها و تجربیات استفاده کنید. تیم ما متشکل از وکلا و مشاوران متخصص در زمینه‌های مختلف
+                    حقوقی است که می‌توانند شما را در مسیر درست هدایت کنند.</p>
+                <p>هدف ما ارائه خدمات حقوقی با بالاترین کیفیت و در کوتاه‌ترین زمان ممکن است تا به شما کمک کنیم از مشکلات
+                    حقوقی پیش رو عبور کنید.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="faq" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">پرسش‌های متداول</h2>
+        <div class="accordion" id="faqAccordion">
+            <!-- سوال اول -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                        چگونه خدمات ما را دریافت کنیم؟
+                    </button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                        شما می‌توانید از طریق فرم تماس در سایت یا تماس مستقیم با شماره‌های درج شده در بخش تماس با ما، با
+                        ما در ارتباط باشید. همچنین امکان دریافت مشاوره اولیه از طریق چت آنلاین وجود دارد.
+                    </div>
+                </div>
+            </div>
+            <!-- سوال دوم -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq2">
+                        هزینه خدمات شما چقدر است؟
+                    </button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        هزینه خدمات بسته به نوع درخواست شما متفاوت است. برای دریافت قیمت دقیق، لطفاً اطلاعات کامل
+                        درخواست خود را به ما ارائه دهید. تیم ما پس از بررسی، پیش‌فاکتور را برای شما ارسال خواهد کرد.
+                    </div>
+                </div>
+            </div>
+            <!-- سوال سوم -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq3">
+                        آیا می‌توانیم مشاوره رایگان دریافت کنیم؟
+                    </button>
+                </h2>
+                <div id="faq3" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        بله، ما امکان ارائه مشاوره اولیه رایگان را برای آشنایی بیشتر با نیازهای شما فراهم کرده‌ایم. برای
+                        دریافت مشاوره، از طریق فرم ثبت درخواست در سایت اقدام کنید.
+                    </div>
+                </div>
+            </div>
+            <!-- سوال چهارم -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq4">
+                        چه نوع لوایحی را تنظیم می‌کنید؟
+                    </button>
+                </h2>
+                <div id="faq4" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        ما در زمینه‌های مختلف از جمله دعاوی حقوقی، کیفری، خانوادگی و تجاری، لوایح تخصصی تنظیم می‌کنیم.
+                        همچنین قراردادهای تجاری و اداری نیز توسط تیم ما تهیه می‌شود.
+                    </div>
+                </div>
+            </div>
+            <!-- سوال پنجم -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq5">
+                        مدت زمان انجام خدمات چقدر است؟
+                    </button>
+                </h2>
+                <div id="faq5" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        زمان‌بندی انجام خدمات بسته به نوع درخواست شما و پیچیدگی آن متفاوت است. اما تیم ما تمام تلاش خود
+                        را می‌کند تا خدمات در کوتاه‌ترین زمان ممکن و با بهترین کیفیت ارائه شود.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="contact" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">تماس با ما</h2>
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">نام و نام خانوادگی</label>
+                <input type="text" class="form-control" id="name" placeholder="نام خود را وارد کنید">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">ایمیل</label>
+                <input type="email" class="form-control" id="email" placeholder="ایمیل خود را وارد کنید">
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">پیام</label>
+                <textarea class="form-control" id="message" rows="3" placeholder="پیام خود را وارد کنید"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success btn-lg">ارسال پیام</button>
+        </form>
+    </div>
+</section>
+<footer>
+    <p>&copy; 2024 لایحه‌نویسی | تمام حقوق محفوظ است</p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz4fnFO9gybR1b6XKN1l6x5o8p5t9Pq5hu4de5h5g5F5H5a8ks5ceH5qkbp"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-pzjw8f+ua7Kw1TIq0v8FqDg4pCOvo2zpg6lPxI1prZkm1c3W6YoRxLbs7ExYPyil8"
+        crossorigin="anonymous"></script>
+
+
+</script>
+</body>
+</html>

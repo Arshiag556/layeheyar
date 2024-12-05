@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لایحه نویسی برای مجلس</title>
+    <!-- آیکون ها -->
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f6fa;
+            direction: rtl;
+            display: flex;
+            height: 100vh;
+        }
+
+        .main-content {
+            margin-right: 250px;
+            padding: 20px;
+            width: 100%;
+            transition: margin-right 0.3s;
+        }
+
+        .dashboard-header {
+            background-color: #6c5ce7;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            position: relative;
+
+
+            color: #666666;
+            font-weight: 400;
+            font-size: 20px;
+        }
+
+        .document-section {
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .document-section h2 {
+            color: #2d3436;
+            margin-bottom: 20px;
+        }
+
+        .document-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .document-form table {
+            width: 100%;
+
+            margin-bottom: 20px;
+        }
+
+        .document-form table th, .document-form table td {
+            padding: 10px;
+            text-align: right;
+
+            font-size: 16px;
+            color: #636e72;
+        }
+
+        .document-form table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+
+        }
+
+
+        input[type="text"], input[type="email"], input[type="password"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 1vw;
+            margin-bottom: 1vw;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #636e72;
+            background-color: #fafafa;
+            transition: border-color 0.3s;
+
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focus {
+            border-color: #6c5ce7;
+            outline: none;
+
+        }
+
+        input[type="submit"] {
+            background-color: #00b894;
+            color: #ffffff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="file"] {
+            position: relative;
+            display: flex;
+            margin-top: 1vw;
+            margin-bottom: 1vw;
+            flex-direction: row;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #636e72;
+        }
+
+        @media (max-width: 992px) {
+
+            .main-content {
+                margin: 0;
+                padding: 10px;
+            }
+        }
+
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+            .main-content {
+                margin-right: 0;
+                padding: 10px;
+                width: 100%;
+            }
+
+            .document-section {
+                flex-direction: column;
+
+
+                align-items: center;
+            }
+
+            table th, table td {
+                font-size: 14px;
+
+            }
+
+            input[type="text"], input[type="email"], input[type="password"], select, textarea {
+
+                margin-top: 3vw;
+                margin-bottom: 3vw;
+
+
+            }
+
+
+            input[type="file"] {
+
+                margin-top: 3vw;
+                margin-bottom: 3vw;
+            }
+
+            input[type="submit"] {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+{% include 'pannel/menu.html' %}
+
+<!-- محتوای اصلی -->
+<main class="main-content">
+    <div class="dashboard-header">
+        <h1>لایحه نویسی برای مجلس</h1>
+    </div>
+
+    <!-- بخش نوشتن لایحه -->
+    <!-- بخش آپلود رسید -->
+    <div class="document-section">
+
+        <div class="document-form">
+            <div style="margin-bottom: 4vw; width: 100%; height: fit-content; align-items: center; display: flex;flex-direction: column">
+                <p>لطفاً مبلغ <strong>--- تومان</strong> را به شماره کارت زیر واریز کنید:</p>
+                <p style="font-size: 1.2em; font-weight: bold;">6037-9978-1234-5678</p>
+                <p>سپس تصویر رسید خود را در قسمت <strong>آپلود تصویر رسید</strong> آپلود کنید</p>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- استفاده از form.as_table برای نمایش فیلدها به صورت جدول -->
+                {{ form.as_table }}
+                <input type="submit">
+
+            </form>
+        </div>
+    </div>
+
+    <!-- بخش نمایش لایحه‌های نوشته شده -->
+    <div class="document-section">
+        <h2>لایحه‌های نوشته شده</h2>
+        <div class="document-form">
+            <h3>لایحه‌های شما</h3>
+            {% if documents %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th>عنوان</th>
+                        <th>متن لایحه</th>
+                        <th>تاریخ ثبت</th>
+                        <th>وضعیت</th> <!-- اضافه کردن ستون برای تصویر -->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for document in documents %}
+                        <tr>
+                            <td>{{ document.title }}</td>
+                            <td>{{ document.text }}</td>
+                            <td>{{ document.get_jalali_date }}</td>
+                            <td>{{ document.status }}</td> <!-- نمایش تصویر -->
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>شما هنوز لایحه‌ای ثبت نکرده‌اید.</p>
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
