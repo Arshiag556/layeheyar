@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>پنل کاربری || پروفایل</title>
@@ -202,7 +203,7 @@ ul{
         {% if user.profile_picture %}
             <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
         {% else %}
-            <img src="/path/to/default/image.jpg" alt="Default Profile Picture">
+            <img src="{% static 'images/dprofile.webp' %}" alt="Default Profile Picture">
         {% endif %}
         <div class="user-details">
             <h2>{{ user.name }} {{ user.family }}</h2>

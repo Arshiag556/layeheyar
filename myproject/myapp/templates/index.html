@@ -42,9 +42,14 @@
     </script>
 
     <title>لایحه‌نویسی حرفه‌ای | خدمات حقوقی و قراردادها</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css"
-          integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz4fnFO9gybR1b6XKN1l6x5o8p5t9Pq5hu4de5h5g5F5H5a8ks5ceH5qkbp"
+        crossorigin="anonymous"></script>
+
     <style>
         body {
             font-family: 'IRANSans', Arial, sans-serif;
@@ -140,33 +145,35 @@
 </head>
 
 <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">لایحه‌نویسی</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ">
+                    <li class="nav-item"><a class="nav-link active" href="#services">خدمات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">درباره ما</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#faq">پرسش‌ها</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">تماس</a></li>
+                </ul>
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">ورود</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'singup' %}">ثبت‌نام</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
 <header class="hero">
     <h1>لایحه‌نویسی حرفه‌ای</h1>
     <p>تنظیم و بررسی لوایح قانونی برای تمامی نیازهای حقوقی شما</p>
     <a href="#services" class="btn btn-success btn-lg mt-3">مشاهده خدمات</a>
 </header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">لایحه‌نویسی</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link active" href="#services">خدمات</a></li>
-                <li class="nav-item"><a class="nav-link" href="#about">درباره ما</a></li>
 
-                <li class="nav-item"><a class="nav-link" href="#faq">پرسش‌ها</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">تماس</a></li>
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">ورود</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'singup' %}">ثبت‌نام</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
 <section id="services" class="py-5">
     <div class="container">
         <h2 class="section-title">خدمات ما</h2>
@@ -330,14 +337,6 @@
 <footer>
     <p>&copy; 2024 لایحه‌نویسی | تمام حقوق محفوظ است</p>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz4fnFO9gybR1b6XKN1l6x5o8p5t9Pq5hu4de5h5g5F5H5a8ks5ceH5qkbp"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-pzjw8f+ua7Kw1TIq0v8FqDg4pCOvo2zpg6lPxI1prZkm1c3W6YoRxLbs7ExYPyil8"
-        crossorigin="anonymous"></script>
 
-
-</script>
 </body>
 </html>

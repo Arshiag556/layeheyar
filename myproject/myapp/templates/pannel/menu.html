@@ -1,3 +1,4 @@
+{% load static %}
 <!-- دکمه باز و بسته کردن اسلایدبار -->
 <button class="sidebar-toggle" onclick="toggleSidebar()">
     <i class="icon ion-md-menu"></i>
@@ -10,7 +11,7 @@
         {% if user.profile_picture %}
             <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
         {% else %}
-            <img src="/path/to/default/image.jpg" alt="Default Profile Picture">
+            <img src="{% static 'images/dprofile.webp' %}" alt="Default Profile Picture">
         {% endif %}
     </div>
     <h2>{{ user.name }} {{ user.family }}</h2>
