@@ -4,13 +4,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login
 from django.contrib import messages
 from .forms import SignupForm, LoginForm, CompleteProfileForm, PhoneVerificationForm
-from .models import UserAccount
+from .models import UserAccount,Notification
 from django.contrib.auth.decorators import login_required
 import random
 from .utils import send_verification_code  # فرض بر این است که تابع ارسال کد تأیید در اینجا قرار دارد
 from django.contrib.auth import update_session_auth_hash
 from tickets.models import Ticket
 from shora.models import assembly,Document
+from django.db.models import Q
+
 
 
 class SignupView(View):
@@ -175,22 +177,28 @@ def contact_us(request):
 
 
 def home(request):
+    # تعداد قانونگذاران تأیید شده و رد شده
     approved_lawmakers = assembly.objects.filter(user=request.user, status='approved').count()
     rejected_lawmakers = assembly.objects.filter(user=request.user, status='rejected').count()
-    approved_Document=assembly.objects.filter(user=request.user, status='approved').count()
-    rejected_Document=assembly.objects.filter(user=request.user, status='rejected').count()
 
+    # تعداد اسناد تأیید شده و رد شده
+    approved_Document = assembly.objects.filter(user=request.user, status='approved').count()
+    rejected_Document = assembly.objects.filter(user=request.user, status='rejected').count()
+
+    # مجموع تأیید شده‌ها و رد شده‌ها
     total_approved = approved_lawmakers + approved_Document
     total_Document = rejected_lawmakers + rejected_Document
 
+    # استفاده از message_type به جای is_public
+    notifications = Notification.objects.filter(message_type='public')  # اعلان‌های عمومی
+
     # تعداد تیکت‌های باز مربوط به کاربر جاری
-    tickets_count = Ticket.objects.filter(user=request.user, ).count()
-    # notifications = Notification.objects.all().order_by('-created_at')[:5]  # 5 اعلان اخیر
+    tickets_count = Ticket.objects.filter(user=request.user).count()
 
     return render(request, 'pannel/home/index.html', {
         'approved_lawmakers': total_approved,
         'rejected_lawmakers': total_Document,
         'tickets_count': tickets_count,
-        # 'notifications': notifications,
+        'notifications': notifications,
         'user': request.user
     })

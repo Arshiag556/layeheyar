@@ -71,6 +71,7 @@
             flex-direction: column;
             align-items: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: max-content;
         }
 
         .card:hover {
@@ -83,17 +84,19 @@
             color: #0984e3; /* رنگ آیکون‌ها */
             margin-bottom: 15px;
         }
-        .card a{
+
+        .card a {
             text-decoration: none;
             text-align: center;
         }
+
         .card h3 {
             font-size: 1.4rem;
             color: #636e72; /* رنگ عنوان کارت‌ها */
             margin-bottom: 10px;
         }
 
-        .card  p {
+        .card p {
             font-size: 0.9rem;
             color: #636e72;
         }
@@ -119,26 +122,43 @@
         }
 
         .notifications {
-            background-color: #ffffff;
-            border-radius: 10px;
+            background-color: #f4f6f9; /* پس‌زمینه کمی روشن‌تر */
+            border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            max-height: 400px; /* محدود کردن ارتفاع */
+            overflow-y: auto;
+            font-family: 'Roboto', sans-serif; /* استفاده از فونت مدرن */
         }
 
         .notifications h4 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
+            font-weight: 600;
             color: #e17055;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 0.5px;
         }
 
         .notifications ul {
             list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
         .notifications ul li {
-            padding: 10px 0;
+            padding: 15px 0;
             border-bottom: 1px solid #dcdde1;
             color: #2d3436;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .notifications ul li:hover {
+            background-color: #f0f3f5; /* رنگ پس‌زمینه هنگام هاور */
+            transform: translateX(5px); /* جابجایی کمی به راست هنگام هاور */
         }
 
         .notifications ul li:last-child {
@@ -146,8 +166,28 @@
         }
 
         .notifications ul li i {
-            color: #fdcb6e; /* رنگ آیکون اعلان‌ها */
-            margin-left: 8px;
+            color: #fdcb6e;
+            margin-left: 15px;
+            font-size: 1.2rem;
+        }
+
+        .notifications ul li span {
+            flex-grow: 1;
+            padding-left: 15px;
+            font-size: 0.95rem;
+            color: #636e72;
+        }
+
+        .notifications ul li i, .notifications ul li span {
+            transition: color 0.3s ease;
+        }
+
+        .notifications ul li i:hover {
+            color: #e17055; /* تغییر رنگ آیکون هنگام هاور */
+        }
+
+        .notifications ul li span:hover {
+            color: #2d3436; /* تغییر رنگ متن هنگام هاور */
         }
 
         .subscription-container {
@@ -260,12 +300,12 @@
         /* استایل‌های ریسپانسیو */
         @media (max-width: 992px) {
             .main-content {
-margin: 0;
+                margin: 0;
                 width: 100%;
 
 
                 position: relative;
-display: grid;
+                display: grid;
 
             }
 
@@ -352,25 +392,25 @@ display: grid;
 
     <div class="card">
 
-            <i class="icon ion-md-clipboard"></i>
-             <a href="{% url 'app1:council' user_id=user.id %}">
+        <i class="icon ion-md-clipboard"></i>
+        <a href="{% url 'app1:council' user_id=user.id %}">
             <h3>لایحه‌های جدید</h3>
             <p>شورای نگهبان</p>
         </a>
     </div>
     <div class="card">
 
-            <i class="icon ion-md-clipboard"></i>
-         <a href="{% url 'app1:assembly' user_id=user.id %}">
+        <i class="icon ion-md-clipboard"></i>
+        <a href="{% url 'app1:assembly' user_id=user.id %}">
             <h3>لایحه‌های جدید</h3>
             <p>مجلس</p>
         </a>
     </div>
     <div class="card">
         <i class="icon ion-md-settings"></i>
-             <a href="{% url 'profile' %}">
-             <h3>پروفایل</h3>
-        <p>پیکربندی سیستم</p>
+        <a href="{% url 'profile' %}">
+            <h3>پروفایل</h3>
+            <p>پیکربندی سیستم</p>
         </a>
 
     </div>
@@ -380,10 +420,10 @@ display: grid;
         <h4>اعلان‌ها</h4>
         <ul>
             {% for notification in notifications %}
-                <li><i class="icon ion-md-notifications"></i> {{ notification.message }}</li>
+                <li>{{ notification.message }}</li>
             {% empty %}
                 <li>هیچ اعلان جدیدی وجود ندارد</li>
-            {% endfor %}    
+            {% endfor %}
         </ul>
     </div>
 </div>

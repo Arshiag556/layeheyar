@@ -3,6 +3,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.utils import timezone
 from jalali_date import date2jalali
 
+
 class UserManager(BaseUserManager):
     def create_user(self, phone_number, name, family, birth_date, national_code, password=None):
         if not phone_number:
@@ -82,3 +83,22 @@ class UserAccount(AbstractBaseUser):
     class Meta:
         verbose_name = "کاربر ها"
         verbose_name_plural = "کاربر ها"
+class Notification(models.Model):
+    MESSAGE_TYPES = (
+        ('public', 'Public'),  # اعلان عمومی
+        ('private', 'Private'),  # اعلان خصوصی
+    )
+
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    message_type = models.CharField(max_length=10, choices=MESSAGE_TYPES, default='public')
+    users = models.ManyToManyField(UserAccount, related_name='notifications', blank=True)  # کاربران خاص که اعلان رو می‌بینند
+
+    def __str__(self):
+        # اگر می‌خواهید پیامی که شامل شماره تلفن اولین کاربر است را نمایش دهید
+        # این کد به طور فرضی اولین کاربر را می‌گیرد
+        if self.users.exists():
+            user = self.users.first()
+            return f"Notification for {user.phone_number} - {self.message[:20]}"
+        return self.message[:20]
