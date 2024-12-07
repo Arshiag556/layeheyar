@@ -45,7 +45,7 @@ class CompleteProfileForm(forms.ModelForm):
         label="تاریخ تولد",
         widget=forms.DateInput(attrs={'type': 'date'})
     )
-    id_card = forms.ImageField(label="آیدی کارت")
+    id_card = forms.ImageField(label=" کارت ملی")
     selfie = forms.ImageField(label="عکس سلفی با کارت ملی")
     national_code = forms.CharField(label="کد ملی")
 

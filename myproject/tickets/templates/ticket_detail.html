@@ -26,7 +26,7 @@
 
         .main-content {
 
-            padding: 20px;
+            padding-right: 250px;
             width: 100%;
             transition: margin-right 0.3s;
         }
@@ -95,7 +95,8 @@
 
         input[type="text"], input[type="email"], input[type="password"], select, textarea {
             width: 100%;
-            padding: 10px;
+            height: 6vw;
+
             margin-top: 1vw;
             margin-bottom: 1vw;
             border: 1px solid #ccc;
@@ -145,9 +146,10 @@
             flex-direction: column;
             width: 100%;
             height: 100%;
-            padding-right: 250px;
+
 
             transition: padding-right 0.3s;
+            padding: 10px;
 
         }
 
@@ -248,7 +250,8 @@
                 padding: 10px;
                 width: 100%;
             }
-                      .container {
+
+            .container {
 
                 margin: 0;
                 height: 100%;
@@ -386,7 +389,7 @@
                     {% csrf_token %}
                     <!-- استفاده از form.as_table برای نمایش فیلدها به صورت جدول -->
                     {{ form.as_table }}
-                    <input type="submit" value="ایجاد تیکت">
+                    <input type="submit" value="ارسال پیام">
                 </form>
             </div>
         </div>

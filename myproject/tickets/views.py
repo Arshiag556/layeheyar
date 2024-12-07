@@ -2,15 +2,21 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Ticket
 from .forms import TicketForm, TicketResponseForm
+from myapp.utils import new_ticket_notif
+
+
 
 @login_required
-def create_ticket(request):
+def create_ticket(request, ):
     if request.method == 'POST':
         form = TicketForm(request.POST)
         if form.is_valid():
             ticket = form.save(commit=False)
             ticket.user = request.user
             ticket.save()
+            # ارسال پیامک به مدیر
+            message = f"کاربر  تیکت جدید ایجاد کرد"
+            new_ticket_notif(message)
             return redirect('tickets:ticket_list')
     else:
         form = TicketForm()

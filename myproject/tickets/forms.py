@@ -33,11 +33,12 @@ class TicketForm(forms.ModelForm):
 
 
 class TicketResponseForm(forms.ModelForm):
+    message = forms.CharField(
+        required=True,
+        label="پیام",
+        widget=forms.Textarea(attrs={'rows': 4, 'cols': 40})  # Example of adding a widget
+    )
+
     class Meta:
         model = TicketResponse
         fields = ['message']
-        message = forms.CharField(
-            required=True,
-            label="پیام",
-
-        )
