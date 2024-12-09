@@ -10,43 +10,28 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04  # تغییر نسخه سیستم‌عامل برای پشتیبانی از Python 3.7
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9] # تست در نسخه‌های مختلف پایتون
+        python-version: [3.7, 3.8, 3.9]
 
     steps:
-      # دریافت کد پروژه
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # نصب نسخه مشخص از پایتون
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
-      # کش کردن وابستگی‌های pip برای سرعت‌بخشیدن به بیلدها
-      - name: Cache pip dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-${{ matrix.python-version }}
-            ${{ runner.os }}-pip-
-
-      # ارتقاء pip
       - name: Upgrade pip
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install pip==23.2.1  # محدود کردن نسخه pip
 
-      # نصب وابستگی‌های پروژه
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
 
-      # اجرای تست‌ها
       - name: Run tests
         run: |
           pytest --verbose --disable-warnings
