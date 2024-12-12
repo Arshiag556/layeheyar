@@ -4,6 +4,7 @@ from django.utils import timezone
 from jalali_date import date2jalali
 
 
+
 class UserManager(BaseUserManager):
     def create_user(self, phone_number, name, family, birth_date, national_code, password=None):
         if not phone_number:
@@ -80,6 +81,10 @@ class UserAccount(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+    def save(self, *args, **kwargs):
+        if self.password and not self.password.startswith('pbkdf2_sha256$'):
+            self.set_password(self.password)  # هش کردن رمز عبور
+        super(UserAccount, self).save(*args, **kwargs)
     class Meta:
         verbose_name = "کاربر ها"
         verbose_name_plural = "کاربر ها"

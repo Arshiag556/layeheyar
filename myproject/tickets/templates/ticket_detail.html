@@ -357,9 +357,10 @@
             <h1>چت تیکت</h1>
             <p class="ticket-status">
                 وضعیت:
-                <span class="status {% if ticket.status == 'باز' %}open{% elif ticket.status == 'بسته' %}closed{% else %}other{% endif %}">
-            {{ ticket.status }}
-        </span>
+
+                {% if ticket.status == 'open' %}در انتظار پاسخ{% elif ticket.status == 'answered' %}
+                                پاسخ داده شد{% else %}بسته{% endif %}
+
         </div>
 
         <div class="messages">

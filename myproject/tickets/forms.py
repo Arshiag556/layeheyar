@@ -42,3 +42,13 @@ class TicketResponseForm(forms.ModelForm):
     class Meta:
         model = TicketResponse
         fields = ['message']
+
+class AdminTicketForm(forms.ModelForm):
+    message = forms.CharField(
+        required=True,
+        label="پیام",
+        widget=forms.Textarea(attrs={'rows': 4, 'cols': 40})  # Example of adding a widget
+    )
+    class Meta:
+        model = Ticket  # مدل باید Ticket باشد
+        fields = ['status']

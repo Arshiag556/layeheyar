@@ -208,8 +208,8 @@
                         <div class="ticket-status">
                     <span class="status-indicator
                         {% if ticket.status == 'open' %}status-open{% elif ticket.status == 'in_progress' %}status-in-progress{% else %}status-closed{% endif %}"></span>
-                            {% if ticket.status == 'open' %}باز{% elif ticket.status == 'in_progress' %}در حال
-                                بررسی{% else %}بسته{% endif %}
+                            {% if ticket.status == 'open' %}در انتظار پاسخ{% elif ticket.status == 'answered' %}
+                                پاسخ داده شد{% else %}بسته{% endif %}
                         </div>
                         <p class="ticket-description">{{ ticket.description|truncatechars:100 }}</p>
                     </div>

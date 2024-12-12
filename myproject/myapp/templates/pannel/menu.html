@@ -52,6 +52,43 @@
                 <span>تیکت</span>
             </a>
         </li>
+
+    {% if user.is_staff %}
+
+    <hr>
+
+        <!-- بخش‌های مخصوص ادمین -->
+        <li>
+            <a href="">
+                <i class="icon ion-md-speedometer"></i>
+                <span>داشبورد ادمین</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="icon ion-md-people"></i>
+                <span>مدیریت کاربران</span>
+            </a>
+        </li>
+            <li>
+            <a href="">
+
+                <span>پاسخ به تیکت ها</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="icon ion-md-stats"></i>
+                <span>گزارش‌ها</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="icon ion-md-settings"></i>
+                <span>تنظیمات سیستم</span>
+            </a>
+        </li>
+        {% endif %}
         <li>
             <a href="{% url 'logout' %}" style="color: lightpink;">
                 <i class="icon ion-md-log-out"></i>
@@ -60,6 +97,9 @@
         </li>
     </ul>
 </aside>
+
+<!-- استایل‌ها و اسکریپت باقی می‌مانند بدون تغییر -->
+
 
 <!-- استایل‌های مربوط به اسلایدبار -->
 <style>

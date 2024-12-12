@@ -4,9 +4,9 @@ from myapp.models import UserAccount
 
 class Ticket(models.Model):
     STATUS_CHOICES = [
-        ('open', 'Open'),
-        ('in_progress', 'In Progress'),
-        ('closed', 'Closed'),
+        ('open', 'در انتظار پاسخ'),
+        ('answered', 'باسخ داده شد'),
+        ('closed', 'بسته شده'),
     ]
     section = models.CharField(max_length=100, choices=[
         ('technical', 'بخش فنی'),

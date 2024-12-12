@@ -120,9 +120,11 @@
             background-color: #f2f2f2;
             font-weight: bold;
         }
-ul{
-    list-style-type: none;
-}
+
+        ul {
+            list-style-type: none;
+        }
+
         input[type="text"], input[type="email"], input[type="password"], select, textarea {
             width: 100%;
             padding: 10px;
@@ -156,13 +158,15 @@ ul{
         input[type="submit"]:hover {
             background-color: #636e72;
         }
-@media (max-width: 992px) {
 
-.main-content{
-    margin: 0;
-     padding: 10px;
-}
-}
+        @media (max-width: 992px) {
+
+            .main-content {
+                margin: 0;
+                padding: 10px;
+            }
+        }
+
         /* ریسپانسیو */
         @media (max-width: 768px) {
             .main-content {
@@ -230,9 +234,7 @@ ul{
             <div class="buttons">
 
 
-
-
-                    <a onclick="document.getElementById('compelet_profile').style.display='block'">تغییر پروفایل</a>
+                <a onclick="document.getElementById('compelet_profile').style.display='block'">تغییر پروفایل</a>
 
 
             </div>
@@ -252,6 +254,10 @@ ul{
 
 
                             {{ form.as_table }}
+                            {% if shamsi_date %}
+                                <h2>تاریخ شمسی معادل:</h2>
+                                <p>{{ shamsi_date }}</p>
+                            {% endif %}
                         </table>
                         <input type="submit" value="ثبت تغییرات">
                     </form>

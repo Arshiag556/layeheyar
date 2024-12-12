@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Ticket
-from .forms import TicketForm, TicketResponseForm
+from .forms import TicketForm, TicketResponseForm,AdminTicketForm
 from myapp.utils import new_ticket_notif
+from django.contrib.auth.decorators import user_passes_test
 
 
 
@@ -52,4 +53,50 @@ def ticket_detail(request, ticket_id):
     return render(request, 'ticket_detail.html', {
         'ticket': ticket,
         'form': form
+
+    })
+
+# بررسی اینکه کاربر ادمین باشد
+def is_admin(user):
+    return user.is_staff
+
+@user_passes_test(is_admin)
+def admin_dashboard(request):
+    tickets = Ticket.objects.all().order_by('-created_at')  # مرتب‌سازی بر اساس تاریخ ایجاد
+    context = {
+        'tickets': tickets,
+    }
+    return render(request, 'admin_dashboard.html', context)
+
+@user_passes_test(is_admin)
+def respond_to_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    if request.method == 'POST':
+        # فرم پاسخ ادمین
+        response_form = TicketResponseForm(request.POST)
+        # فرم تغییر وضعیت
+        status_form = AdminTicketForm(request.POST)
+
+        if response_form.is_valid() and status_form.is_valid():
+            # ذخیره پاسخ
+            response = response_form.save(commit=False)
+            response.ticket = ticket
+            response.user = request.user
+            response.save()
+
+            # ذخیره تغییر وضعیت
+            ticket.status = 'answered'
+            ticket.save()
+
+            print("Ticket response and status saved successfully")
+            return redirect('tickets:admin_dashboard')
+    else:
+        response_form = TicketResponseForm()
+        status_form = AdminTicketForm()
+
+    return render(request, 'respond_ticket.html', {
+        'ticket': ticket,
+        'response_form': response_form,
+        'status_form': status_form,
     })

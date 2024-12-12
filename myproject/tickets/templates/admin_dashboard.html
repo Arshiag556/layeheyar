@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* راست‌چین کردن جدول */
+        body {
+            direction: rtl;
+            text-align: right;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            direction: rtl;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: right;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .actions a {
+            margin-left: 10px;
+        }
+
+        /* استایل وضعیت‌ها */
+        .status-open {
+            color: green;
+        }
+
+        .status-answered {
+            color: blue;
+        }
+
+        .status-closed {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1> مدیریت تیکت</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>نام</th>
+                <th>نام خانوادگی</th>
+                <th>شماره تلفن</th>
+                <th>عنوان</th>
+                <th>توضیحات</th>
+                <th>بخش</th>
+                <th>وضعیت</th>
+                <th>تاریخ ساخت</th>
+                <th>آخرین به‌روزرسانی</th>
+                <th>پاسخ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.user.name }}</td>
+                    <td>{{ ticket.user.family }}</td>
+                    <td>{{ ticket.user.phone_number }}</td>
+                    <td>{{ ticket.title }}</td>
+                    <td>{{ ticket.description|truncatechars:100 }}</td>
+                    <td>{{ ticket.get_section_display }}</td>
+                    <td class="
+                        {% if ticket.status == 'open' %}status-open
+                        {% elif ticket.status == 'answered' %}status-answered
+                        {% elif ticket.status == 'closed' %}status-closed
+                        {% endif %}
+                    ">{{ ticket.get_status_display }}</td>
+                    <td>{{ ticket.created_at|date:"Y/m/d H:i" }}</td>
+                    <td>{{ ticket.updated_at|date:"Y/m/d H:i" }}</td>
+                    <td class="actions">
+                        <a href="{% url 'tickets:respond_to_ticket' ticket.id %}">پاسخ</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="8" style="text-align:center;">تیکتی وجود ندارد.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>

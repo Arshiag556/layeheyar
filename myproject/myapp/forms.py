@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import UserAccount
+from persiantools.jdatetime import JalaliDate
 
 
 class SignupForm(UserCreationForm):
@@ -41,10 +42,12 @@ from django.contrib.auth.models import User
 
 class CompleteProfileForm(forms.ModelForm):
     profile_picture = forms.ImageField(label="پروفایل")
-    birth_date = forms.DateField(
-        label="تاریخ تولد",
-        widget=forms.DateInput(attrs={'type': 'date'})
+    # فیلدی برای انتخاب تاریخ میلادی
+    date = forms.DateField(
+        widget=forms.DateInput(attrs={"type": "date"}),
+        label="تاریخ میلادی"
     )
+
     id_card = forms.ImageField(label=" کارت ملی")
     selfie = forms.ImageField(label="عکس سلفی با کارت ملی")
     national_code = forms.CharField(label="کد ملی")
@@ -77,4 +80,13 @@ class CompleteProfileForm(forms.ModelForm):
             raise forms.ValidationError("رمز عبور و تایید رمز عبور با هم تطابق ندارند.")
 
         return cleaned_data
+
+    def clean_date(self):
+        """
+        این متد داده‌های واردشده را می‌گیرد و به شمسی تبدیل می‌کند.
+        """
+        date = self.cleaned_data['date']
+        # تبدیل تاریخ میلادی به شمسی
+        shamsi_date = JalaliDate.from_gregorian(gregorian_date=date).strftime('%Y/%m/%d')
+        return shamsi_date
 

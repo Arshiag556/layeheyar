@@ -121,31 +121,52 @@ class logout_view(View):
         request.session.clear()
         return redirect('login')
 
+def update_user_verification(user):
+    """
+    بررسی و به‌روزرسانی وضعیت تأیید کاربر
+    """
+    if user.is_verified in ["1", "3"]:
+        user.is_verified = "2"
+    else:
+        user.is_verified = "4"
+    user.save()
+def is_password_secure(password):
+    """
+    اعتبارسنجی رمز عبور
+    بررسی طول رمز عبور و معیارهای امنیتی
+    """
+    if len(password) < 8:
+        return False  # رمز عبور باید حداقل 8 کاراکتر باشد
+    return True
 
 @login_required
 def profile(request):
+    """
+    View مربوط به پروفایل کاربری
+    """
     if request.method == 'POST':
         form = CompleteProfileForm(request.POST, request.FILES, instance=request.user)
-        if form.is_valid():
-            if request.user.is_verified == "1" or request.user.is_verified == "3":
-                request.user.is_verified = "2"
-            else:
-                request.user.is_verified = "4"
 
-            # چک کردن تغییر پسورد
+        if form.is_valid():
+            # بررسی و به‌روزرسانی وضعیت تأیید
+            update_user_verification(request.user)
+
+            # بررسی تغییر رمز عبور
             password = form.cleaned_data.get('password')
             if password:
-                request.user.set_password(password)  # به روز رسانی پسورد
+                if not is_password_secure(password):
+                    form.add_error('password', 'رمز عبور باید حداقل ۸ کاراکتر باشد.')
+                    return render(request, 'pannel/profile.html', {'form': form})
 
+                request.user.set_password(password)  # به‌روزرسانی پسورد
+                update_session_auth_hash(request, request.user)  # به‌روزرسانی سشن
+
+            # ذخیره اطلاعات کاربری
             form.save()
-            request.user.save()
-
-            # بروزرسانی سشن کاربر برای حفظ وضعیت ورود
-            update_session_auth_hash(request, request.user)
-
-            return redirect('profile')  # Redirect after saving
+            return redirect('profile')
     else:
         form = CompleteProfileForm(instance=request.user)
+
     return render(request, 'pannel/profile.html', {'form': form})
 
 

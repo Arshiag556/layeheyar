@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>چت تیکت</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazir:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
+
+
+</head>
+<body>
+
+<main class="main-content">
+    <div class="container">
+        <div class="header">
+            <h1>چت تیکت</h1>
+            <p class="ticket-status">
+                وضعیت:
+             {{ ticket.status }}
+
+        </div>
+
+        <div class="messages">
+            {% for response in ticket.responses.all %}
+                <div class="message-item {% if response.user.is_staff %}admin{% else %}user{% endif %}">
+                    <div class="message-bubble {% if response.user.is_staff %}admin{% else %}user{% endif %}">
+                        <p>{{ response.message }}</p>
+                        <span class="time">
+                        {{ response.created_at|date:"H:i - d M" }}
+                    </span>
+                        <span class="section">
+                        .{{ response.get_section_display }}
+                    </span>
+                    </div>
+                </div>
+            {% empty %}
+                <p>هیچ پیامی وجود ندارد.</p>
+            {% endfor %}
+        </div>
+
+
+        <div class="document-section">
+
+            <div class="document-form">
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- استفاده از form.as_table برای نمایش فیلدها به صورت جدول -->
+                    {{ response_form.as_table }}
+                    {{ status_form.status }}
+
+                    <input type="submit" value="ارسال پیام">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
