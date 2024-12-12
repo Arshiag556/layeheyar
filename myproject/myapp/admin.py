@@ -3,13 +3,33 @@ from .models import UserAccount, Notification
 from django.forms import ModelForm
 
 
-# Register your models here.
-
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ("name", "family", "phone_number", "is_active", "is_staff", "is_verified", "registration_date")
+    # فیلدهایی که در پنل ادمین باید نمایش داده شوند
+    list_display = (
+        "phone_number", "name", "family", "birth_date", "national_code", "is_active", "is_staff", "is_verified",
+        "registration_date", 'groups_display'
+    )
+
+    # اضافه کردن فیلتر برای وضعیت
     list_filter = ["is_staff", "is_active", "is_verified"]
 
+    # متد برای نمایش گروه‌ها
+    def groups_display(self, obj):
+        return ", ".join([group.name for group in obj.groups.all()])
 
+    groups_display.short_description = 'Groups'
+
+    # اضافه کردن فیلتر برای گروه‌ها و مجوزها
+    filter_horizontal = ('groups', 'user_permissions')
+
+
+    
+
+    # فیلدهای که در فرم ادمین قابل جستجو هستند
+    search_fields = ('phone_number', 'name', 'family')
+
+
+# ثبت پنل ادمین برای UserAccount
 admin.site.register(UserAccount, MemberAdmin)
 
 

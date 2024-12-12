@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.utils import timezone
+from django.contrib.auth.models import Group,Permission
 from jalali_date import date2jalali
 
 
@@ -63,6 +64,8 @@ class UserAccount(AbstractBaseUser):
     ]
     is_verified = models.CharField(choices=STATUS, default="1", max_length=30, verbose_name="وضعیت وریفای حساب")
     is_staff = models.BooleanField(default=False, verbose_name="ادمین")
+    groups = models.ManyToManyField(Group, blank=True)
+    user_permissions = models.ManyToManyField(Permission, blank=True)
 
     objects = UserManager()
 
