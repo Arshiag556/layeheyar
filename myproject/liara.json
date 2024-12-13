@@ -1,8 +1,0 @@
-{
-  "app": "layeheyar",
-  "port": 80,
-  "build": {
-    "location": "iran"
-  },
-  "disks": []
-}
