@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp','shora',"admin_interface",
     "colorfield",'django.contrib.admin',
-    'jalali_date',"tickets"
+    'jalali_date',"tickets","errors"
 ]
 
 USE_JALALI = True
@@ -91,10 +91,15 @@ ROOT_URLCONF = 'myproject.urls'
 
 
 
+DEBUG = False  # در حالت تولید باید False باشد.
+
+ALLOWED_HOSTS = ['*']  # به جز localhost در سرورهای واقعی باید مقادیر مناسب وارد شود.
+
+# اضافه کردن دایرکتوری templates به تنظیمات
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'errors/templates/errors'],  # دایرکتوری مخصوص صفحات خطا
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -207,4 +212,6 @@ SILENCED_SYSTEM_CHECKS = ["security.W019"]
 DEFAULT_CHARSET = 'utf-8'
 
 INSTALLED_APPS += ['widget_tweaks']
+
+
 

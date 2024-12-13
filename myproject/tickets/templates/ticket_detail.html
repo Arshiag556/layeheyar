@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
 
     <style>
-
-
         * {
             margin: 0;
             padding: 0;
@@ -25,7 +23,6 @@
         }
 
         .main-content {
-
             padding-right: 250px;
             width: 100%;
             transition: margin-right 0.3s;
@@ -42,8 +39,6 @@
 
         label {
             position: relative;
-
-
             color: #666666;
             font-weight: 400;
             font-size: 20px;
@@ -68,20 +63,17 @@
             background-color: #ffffff;
             padding: 20px;
             border-radius: 10px;
-
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .document-form table {
             width: 100%;
-
             margin-bottom: 20px;
         }
 
         .document-form table th, .document-form table td {
             padding: 10px;
             text-align: right;
-
             font-size: 16px;
             color: #636e72;
         }
@@ -89,14 +81,11 @@
         .document-form table th {
             background-color: #f2f2f2;
             font-weight: bold;
-
         }
-
 
         input[type="text"], input[type="email"], input[type="password"], select, textarea {
             width: 100%;
             height: 6vw;
-
             margin-top: 1vw;
             margin-bottom: 1vw;
             border: 1px solid #ccc;
@@ -105,13 +94,11 @@
             color: #636e72;
             background-color: #fafafa;
             transition: border-color 0.3s;
-
         }
 
         input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focus {
             border-color: #6c5ce7;
             outline: none;
-
         }
 
         input[type="submit"] {
@@ -141,16 +128,12 @@
         }
 
         .container {
-
             display: flex;
             flex-direction: column;
             width: 100%;
             height: 100%;
-
-
             transition: padding-right 0.3s;
             padding: 10px;
-
         }
 
         .header {
@@ -198,15 +181,19 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            max-height: calc(100vh - 180px); /* Adjusting for header and form height */
+            max-height: calc(100vh - 180px);
         }
 
         .message-item {
             display: flex;
-            align-items: flex-start;
+            align-items: flex-end;
         }
 
         .message-item.user {
+            justify-content: flex-start;
+        }
+
+        .message-item.admin {
             justify-content: flex-end;
         }
 
@@ -243,25 +230,6 @@
             text-align: right;
         }
 
-        @media (max-width: 992px) {
-
-            .main-content {
-                margin-right: 0;
-                padding: 10px;
-                width: 100%;
-            }
-
-            .container {
-
-                margin: 0;
-                height: 100%;
-                border-radius: 0;
-                padding-right: 0px;
-            }
-
-        }
-
-        /* ریسپانسیو */
         @media (max-width: 768px) {
             .main-content {
                 margin-right: 0;
@@ -271,27 +239,19 @@
 
             .document-section {
                 flex-direction: column;
-
-
                 align-items: center;
             }
 
             table th, table td {
                 font-size: 14px;
-
             }
 
             input[type="text"], input[type="email"], input[type="password"], select, textarea {
-
                 margin-top: 3vw;
                 margin-bottom: 3vw;
-
-
             }
 
-
             input[type="file"] {
-
                 margin-top: 3vw;
                 margin-bottom: 3vw;
             }
@@ -300,53 +260,6 @@
                 padding: 10px;
             }
         }
-
-
-        /* RWD Media Queries */
-        @media screen and (max-width: 768px) {
-            .main-content {
-                height: 100%;
-            }
-
-            .container {
-
-                margin: 0;
-                height: 100%;
-                border-radius: 0;
-                padding-right: 0px;
-            }
-
-            .header {
-                padding: 15px;
-            }
-
-            .message-bubble {
-                max-width: 80%;
-                padding: 12px;
-            }
-
-            .form-container {
-                padding: 15px;
-            }
-
-            form button {
-                padding: 12px;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-
-
-            .message-bubble {
-                max-width: 90%;
-                padding: 10px;
-            }
-
-            form button {
-                padding: 10px;
-            }
-        }
-
     </style>
 </head>
 <body>
@@ -357,10 +270,8 @@
             <h1>چت تیکت</h1>
             <p class="ticket-status">
                 وضعیت:
-
-                {% if ticket.status == 'open' %}در انتظار پاسخ{% elif ticket.status == 'answered' %}
-                                پاسخ داده شد{% else %}بسته{% endif %}
-
+                {% if ticket.status == 'open' %}در انتظار پاسخ{% elif ticket.status == 'answered' %}پاسخ داده شد{% else %}بسته{% endif %}
+            </p>
         </div>
 
         <div class="messages">
@@ -368,12 +279,8 @@
                 <div class="message-item {% if response.user.is_staff %}admin{% else %}user{% endif %}">
                     <div class="message-bubble {% if response.user.is_staff %}admin{% else %}user{% endif %}">
                         <p>{{ response.message }}</p>
-                        <span class="time">
-                        {{ response.created_at|date:"H:i - d M" }}
-                    </span>
-                        <span class="section">
-                        .{{ response.get_section_display }}
-                    </span>
+                        <span class="time">{{ response.created_at|date:"H:i - d M" }}</span>
+                        <span class="section">{{ response.get_section_display }}</span>
                     </div>
                 </div>
             {% empty %}
@@ -381,19 +288,16 @@
             {% endfor %}
         </div>
 
-
         <div class="document-section">
-
             <div class="document-form">
-
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <!-- استفاده از form.as_table برای نمایش فیلدها به صورت جدول -->
                     {{ form.as_table }}
                     <input type="submit" value="ارسال پیام">
                 </form>
             </div>
         </div>
     </div>
+</main>
 </body>
 </html>

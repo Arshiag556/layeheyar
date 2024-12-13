@@ -28,12 +28,7 @@
                 <span>پروفایل من</span>
             </a>
         </li>
-        <li>
-            <a href="{% url 'contact-us' %}">
-                <i class="icon ion-md-list-box"></i>
-                <span>ارتباط با ما</span>
-            </a>
-        </li>
+
         <li>
             <a href="{% url 'app1:council' user_id=user.id %}">
                 <i class="icon ion-md-mail"></i>
@@ -41,7 +36,7 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'app1:assembly' user_id=user.id %}">
+            <a href="{% url 'app1:assembly' user_id=user.id %}" disabled="True">
                 <i class="icon ion-md-mail"></i>
                 <span>لایحه نویسی برای مجلس</span>
             </a>
@@ -59,36 +54,22 @@
 
         <!-- بخش‌های مخصوص ادمین -->
         <li>
-            <a href="">
+            <a href="../admin">
                 <i class="icon ion-md-speedometer"></i>
                 <span>داشبورد ادمین</span>
             </a>
         </li>
         <li>
-            <a href="">
-                <i class="icon ion-md-people"></i>
-                <span>مدیریت کاربران</span>
-            </a>
-        </li>
-            <li>
-            <a href="">
 
-                <span>پاسخ به تیکت ها</span>
-            </a>
-        </li>
         <li>
-            <a href="">
+            <a href="{% url 'tickets:admin_dashboard' %}">
                 <i class="icon ion-md-stats"></i>
                 <span>گزارش‌ها</span>
             </a>
         </li>
-        <li>
-            <a href="">
-                <i class="icon ion-md-settings"></i>
-                <span>تنظیمات سیستم</span>
-            </a>
-        </li>
+
         {% endif %}
+        <hr>
         <li>
             <a href="{% url 'logout' %}" style="color: lightpink;">
                 <i class="icon ion-md-log-out"></i>

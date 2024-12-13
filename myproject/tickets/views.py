@@ -86,11 +86,12 @@ def respond_to_ticket(request, ticket_id):
             response.save()
 
             # ذخیره تغییر وضعیت
-            ticket.status = 'answered'
+            ticket.status = status_form.cleaned_data['status']
             ticket.save()
 
             print("Ticket response and status saved successfully")
-            return redirect('tickets:admin_dashboard')
+            return redirect('tickets:respond_to_ticket', ticket_id=ticket_id)
+
     else:
         response_form = TicketResponseForm()
         status_form = AdminTicketForm()
@@ -100,3 +101,13 @@ def respond_to_ticket(request, ticket_id):
         'response_form': response_form,
         'status_form': status_form,
     })
+
+def admin_dashboard(request):
+    section = request.GET.get('section', 'all')
+
+    if section == 'all':
+        tickets = Ticket.objects.all()
+    else:
+        tickets = Ticket.objects.filter(section=section)
+
+    return render(request, 'admin_dashboard.html', {'tickets': tickets})

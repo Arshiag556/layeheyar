@@ -4,21 +4,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>چت تیکت</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazir:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7f9fc;
+            direction: rtl;  /* Set to RTL */
+            padding: 20px;
+            color: #444;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .ticket-status {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .messages {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            height: fit-content;
+        }
+
+        .message-item {
+            margin-bottom: 15px;
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+        }
 
 
+
+        .message-bubble {
+  max-width: 75%;
+    padding: 12px 18px;
+    border-radius: 20px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word; /* Ensure long words break and do not overflow */
+    overflow: hidden; /* Prevent overflow of text beyond the bubble */
+
+        }
+
+        /* Reversed bubble positions */
+        .message-bubble.admin {
+            background-color: #007bff;
+            color: #fff;
+
+            border-top-right-radius: 0;
+        }
+
+        .message-bubble.user {
+            background-color: #f0f0f5;
+            color: #333;
+            margin-left: auto;  /* User messages now align right */
+            border-top-left-radius: 0;
+        }
+
+        .message-bubble .time {
+            display: block;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #bbb;
+        }
+
+        .document-section {
+            margin-top: 20px;
+        }
+
+        .document-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .document-form input[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .document-form input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .message-bubble {
+                font-size: 15px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .message-bubble {
+                max-width: 90%;
+            }
+
+            .document-form input[type="submit"] {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-
 <main class="main-content">
     <div class="container">
         <div class="header">
             <h1>چت تیکت</h1>
             <p class="ticket-status">
-                وضعیت:
-             {{ ticket.status }}
-
+                وضعیت: {{ ticket.status }}
+            </p>
         </div>
 
         <div class="messages">
@@ -27,11 +160,8 @@
                     <div class="message-bubble {% if response.user.is_staff %}admin{% else %}user{% endif %}">
                         <p>{{ response.message }}</p>
                         <span class="time">
-                        {{ response.created_at|date:"H:i - d M" }}
-                    </span>
-                        <span class="section">
-                        .{{ response.get_section_display }}
-                    </span>
+                            {{ response.created_at|date:"H:i - d M" }}
+                        </span>
                     </div>
                 </div>
             {% empty %}
@@ -39,22 +169,19 @@
             {% endfor %}
         </div>
 
-
         <div class="document-section">
-
             <div class="document-form">
-
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-
-                    <!-- استفاده از form.as_table برای نمایش فیلدها به صورت جدول -->
                     {{ response_form.as_table }}
                     {{ status_form.status }}
-
                     <input type="submit" value="ارسال پیام">
                 </form>
             </div>
         </div>
     </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
