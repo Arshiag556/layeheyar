@@ -1,5 +1,8 @@
 {
-  "django": {
-    "settingsFile": "./path/to/my/settings.py"
-  }
+  "app": "layeheyar",
+  "port": 80,
+  "build": {
+    "location": "iran"
+  },
+  "disks": []
 }
