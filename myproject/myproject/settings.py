@@ -89,6 +89,9 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'myproject.urls'
 
 
+DJANGO_SETTINGS_MODULE=myproject.settings
+
+
 
 
 DEBUG = False  # در حالت تولید باید False باشد.
