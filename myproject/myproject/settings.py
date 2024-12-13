@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os,locale
 
+import myproject.settings
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -96,7 +98,7 @@ DJANGO_SETTINGS_MODULE=myproject.settings
 
 DEBUG = False  # در حالت تولید باید False باشد.
 
-ALLOWED_HOSTS = ['*']  # به جز localhost در سرورهای واقعی باید مقادیر مناسب وارد شود.
+ALLOWED_HOSTS = ['layeheyar.liara.run']  # به جز localhost در سرورهای واقعی باید مقادیر مناسب وارد شود.
 
 # اضافه کردن دایرکتوری templates به تنظیمات
 TEMPLATES = [
