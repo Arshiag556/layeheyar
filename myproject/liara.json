@@ -1,5 +1,5 @@
 {
   "django": {
-    "settingsFile": "myproject/settings.py"
+    "settingsFile": "./path/to/my/settings.py"
   }
 }
