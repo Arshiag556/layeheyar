@@ -91,7 +91,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'myproject.urls'
 
 
-DJANGO_SETTINGS_MODULE=myproject.settings
+
 
 
 
