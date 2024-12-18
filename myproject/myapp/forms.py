@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import UserAccount
 from persiantools.jdatetime import JalaliDate
+from .models import Payment
 
 
 class SignupForm(UserCreationForm):
@@ -90,3 +91,23 @@ class CompleteProfileForm(forms.ModelForm):
         shamsi_date = JalaliDate.from_gregorian(gregorian_date=date).strftime('%Y/%m/%d')
         return shamsi_date
 
+
+
+
+
+class PaymentForm(forms.ModelForm):
+    class Meta:
+        model = Payment
+        fields = ['amount', 'card_number','receipt_image']  # مشخصات فرم
+        labels = {
+            'amount': 'مبلغ پرداخت',  # تغییر نام فیلد به فارسی
+            'card_number':'شماره کارت',
+            'receipt_image': 'تصویر رسید پرداخت',  # تغییر نام فیلد به فارسی
+        }
+
+
+    def clean_amount(self):
+        amount = self.cleaned_data.get('amount')
+        if amount < 500000:
+            raise forms.ValidationError('مبلغ پرداخت باید حداقل 500,000 تومان باشد.')
+        return amount

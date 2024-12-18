@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لیست درخواست‌های پرداخت</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazir:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazir', sans-serif;
+            background-color: #f5f6fa;
+            direction: rtl;
+        }
+
+        .table-container {
+
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+
+            overflow-x: auto;
+            padding: 20px;
+            margin-right: 250px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #6c5ce7;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .action-button {
+            text-decoration: none;
+            color: #fff;
+            background-color: #00b894;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .action-button:hover {
+            background-color: #636e72;
+        }
+
+        .no-request {
+            text-align: center;
+            color: #636e72;
+            font-size: 18px;
+            padding: 20px;
+        }
+
+        .balance-info {
+            font-size: 16px;
+            color: #2d3436;
+        }
+
+        /* تنظیمات ریسپانسیو */
+        @media (max-width: 768px) {
+            .table-container {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            .action-button {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .table-container {
+                padding: 10px;
+                 margin-right: 0;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 6px;
+            }
+
+            .action-button {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+
+            .no-request {
+                font-size: 16px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+{% include 'pannel/menu.html' %}
+
+<div class="table-container">
+    <h1>لیست درخواست‌های پرداخت</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>شماره</th>
+            <th>کاربر</th>
+            <th>مبلغ</th>
+            <th>تصویر رسید</th>
+            <th>عملیات</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for payment in payments %}
+            <tr>
+                <td>{{ payment.id }}</td>
+                <td>{{ payment.account.phone_number }}</td>
+                <td class="balance-info">
+                    {{ payment.amount|floatformat:0 }} تومان
+                </td>
+                <td>
+                    {% if payment.receipt_image %}
+                        <a href="{{ payment.receipt_image.url }}" target="_blank" class="action-button">مشاهده</a>
+                    {% else %}
+                        ندارد
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'approve_payment' payment.id %}" class="action-button">تأیید</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="5" class="no-request">درخواستی یافت نشد.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

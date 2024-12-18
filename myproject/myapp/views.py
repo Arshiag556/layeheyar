@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login
 from django.contrib import messages
-from .forms import SignupForm, LoginForm, CompleteProfileForm, PhoneVerificationForm
+from .forms import SignupForm, LoginForm, CompleteProfileForm, PhoneVerificationForm,PaymentForm,Payment
 from .models import UserAccount,Notification
 from django.contrib.auth.decorators import login_required
 import random
@@ -12,6 +12,8 @@ from django.contrib.auth import update_session_auth_hash
 from tickets.models import Ticket
 from shora.models import assembly,Document
 from django.db.models import Q
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 
 
@@ -212,14 +214,58 @@ def home(request):
 
     # استفاده از message_type به جای is_public
     notifications = Notification.objects.filter(message_type='public')  # اعلان‌های عمومی
+    # تعداد اعلان‌های خوانده نشده
+    unread_notifications_count = Notification.objects.filter(users=request.user, is_read=False).count()
+    notifications.update(is_read=True)
 
     # تعداد تیکت‌های باز مربوط به کاربر جاری
     tickets_count = Ticket.objects.filter(user=request.user).count()
+
 
     return render(request, 'pannel/home/index.html', {
         'approved_lawmakers': total_approved,
         'rejected_lawmakers': total_Document,
         'tickets_count': tickets_count,
         'notifications': notifications,
+        'unread_notifications_count': unread_notifications_count,
         'user': request.user
     })
+
+
+@staff_member_required
+def payment_requests_list(request):
+    # دریافت درخواست‌های تأیید نشده
+    payments = Payment.objects.filter(is_approved=False).order_by('-id')
+    return render(request, 'payment/payment_requests_list.html', {'payments': payments})
+
+def submit_payment(request):
+    if request.method == 'POST':
+        print(request.POST)  # داده‌های ارسال‌شده از فرم
+        form = PaymentForm(request.POST, request.FILES)
+        if form.is_valid():
+            card_number = request.POST.get('card_number')
+            print(f"Card number: {card_number}")
+            account = get_object_or_404(UserAccount, card_number=card_number)
+
+            payment = form.save(commit=False)
+            payment.account = account
+            payment.save()
+
+            messages.success(request, 'فیش شما با موفقیت ثبت شد. لطفاً منتظر تأیید ادمین باشید.')
+            return redirect('submit_payment')
+        else:
+            print("Form errors:", form.errors)
+    else:
+        form = PaymentForm()
+
+    return render(request, 'payment/submit_payment.html', {'form': form})
+
+@staff_member_required
+def approve_payment(request, payment_id):
+    payment = get_object_or_404(Payment, id=payment_id, is_approved=False)
+    payment.is_approved = True
+    payment.account.balance += payment.amount  # شارژ حساب کاربر
+    payment.account.save()
+    payment.save()
+    messages.success(request, f"پرداخت {payment.amount} برای {payment.account.phone_number} تأیید شد.")
+    return redirect('payments')  # مسیر داشبورد ادمین

@@ -25,12 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-uqvgypt6pox89p4ly-5!nghbv$t8&)ncymh12%#z2#%h!hp9tw'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -96,9 +92,9 @@ ROOT_URLCONF = 'myproject.urls'
 
 
 
-DEBUG = False  # در حالت تولید باید False باشد.
+DEBUG = True  # در حالت تولید باید False باشد.
 
-ALLOWED_HOSTS = ['layeheyar.liara.run']  # به جز localhost در سرورهای واقعی باید مقادیر مناسب وارد شود.
+ALLOWED_HOSTS = ['*']  # به جز localhost در سرورهای واقعی باید مقادیر مناسب وارد شود.
 
 # اضافه کردن دایرکتوری templates به تنظیمات
 TEMPLATES = [

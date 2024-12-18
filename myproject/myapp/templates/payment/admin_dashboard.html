@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>رسید ها</title>
+</head>
+<body>
+    <h1>داشبورد ادمین</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>کاربر</th>
+                <th>مبلغ</th>
+                <th>تصویر فیش</th>
+                <th>وضعیت</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payment in payments %}
+            <tr>
+                <td>{{ payment.account.username }}</td>
+                <td>{{ payment.amount }}</td>
+                <td><img src="{{ payment.receipt_image.url }}" alt="Receipt" width="100"></td>
+                <td>{{ payment.is_approved|yesno:"تأیید شده,در انتظار" }}</td>
+                <td>
+                    {% if not payment.is_approved %}
+                    <a href="{% url 'approve_payment' payment.id %}">تأیید</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

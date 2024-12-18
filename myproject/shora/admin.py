@@ -1,15 +1,14 @@
 from django.contrib import admin
-from .models import Document,assembly
+from .models import Document, assembly  # استفاده از نام‌های صحیح مدل‌ها
 
-# Register your models here.
-class shora(admin.ModelAdmin):
+# ثبت مدل Document با تنظیمات ادمین
+class ShoraAdmin(admin.ModelAdmin):  # استفاده از نام صحیح کلاس ادمین
+    list_display = ('user',)  # اطمینان حاصل کنید که 'user' یک فیلد معتبر است
 
-    list_display = ('user', 'receipt_image')
+admin.site.register(Document, ShoraAdmin)
 
-admin.site.register(Document, shora )
+# ثبت مدل Assembly با تنظیمات ادمین
+class AssemblyAdmin(admin.ModelAdmin):  # استفاده از نام صحیح کلاس ادمین
+    list_display = ('user',)  # اطمینان حاصل کنید که 'user' یک فیلد معتبر است
 
-class Assembly(admin.ModelAdmin):
-
-    list_display = ('user', 'receipt_image')
-
-admin.site.register(assembly, Assembly )
+admin.site.register(assembly, AssemblyAdmin)

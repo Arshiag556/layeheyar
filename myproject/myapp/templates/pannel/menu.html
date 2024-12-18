@@ -11,10 +11,16 @@
         {% if user.profile_picture %}
             <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
         {% else %}
-            <img src="{% static 'images/dprofile.webp' %}" alt="Default Profile Picture">
+            <img src="{% static 'images/profile-avatar-66.png' %}" alt="Default Profile Picture">
         {% endif %}
     </div>
     <h2>{{ user.name }} {{ user.family }}</h2>
+    <!-- نمایش موجودی حساب -->
+    <div class="account-balance">
+        <span>موجودی حساب: </span>
+        <strong>{{ user.balance|floatformat:0 }} تومان</strong>
+        <!-- فرض کردیم که useraccount موجودی را ذخیره می‌کند -->
+    </div>
     <ul>
         <li>
             <a href="{% url 'home' %}">
@@ -47,26 +53,39 @@
                 <span>تیکت</span>
             </a>
         </li>
-
-    {% if user.is_staff %}
-
-    <hr>
-
-        <!-- بخش‌های مخصوص ادمین -->
         <li>
-            <a href="../admin">
-                <i class="icon ion-md-speedometer"></i>
-                <span>داشبورد ادمین</span>
+            <a href="{% url 'submit_payment' %}">
+                <i class="icon ion-md-wallet"></i>
+                <span>شارژ حساب</span>
             </a>
         </li>
-        <li>
 
-        <li>
-            <a href="{% url 'tickets:admin_dashboard' %}">
-                <i class="icon ion-md-stats"></i>
-                <span>گزارش‌ها</span>
-            </a>
-        </li>
+
+        {% if user.is_staff %}
+
+            <hr>
+
+            <!-- بخش‌های مخصوص ادمین -->
+            <li>
+                <a href="../admin">
+                    <i class="icon ion-md-speedometer"></i>
+                    <span>داشبورد ادمین</span>
+                </a>
+            </li>
+            <li>
+
+            <li>
+                <a href="{% url 'tickets:admin_dashboard' %}">
+                    <i class="icon ion-md-stats"></i>
+                    <span>گزارش‌ها</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'payments' %}">
+                    <i class="icon ion-md-clipboard"></i>
+                    <span>رسید ها</span>
+                </a>
+            </li>
 
         {% endif %}
         <hr>
@@ -123,6 +142,19 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+
+    }
+
+    .account-balance {
+
+
+        color: #ffffff;
+        text-align: center;
+    }
+
+    .account-balance strong {
+
+        color: #00b894; /* رنگ سبز برای مبلغ */
     }
 
     .sidebar ul {
@@ -164,12 +196,13 @@
         display: none;
     }
 
-@media (max-width: 992px) {
+    @media (max-width: 992px) {
 
-     .sidebar {
+        .sidebar {
             transform: translateX(100%);
         }
-          .sidebar-toggle {
+
+        .sidebar-toggle {
             display: block;
             position: fixed;
             top: 20px;
@@ -180,12 +213,15 @@
             padding: 10px;
             border-radius: 50%;
             z-index: 3;
+            font-size: 20px;
             cursor: pointer;
         }
-            .sidebar.open {
+
+        .sidebar.open {
             transform: translateX(0);
         }
-}
+    }
+
     @media (max-width: 768px) {
 
 
@@ -197,6 +233,7 @@
             background-color: #2d3436;
             color: #fff;
             border: none;
+            font-size: 20px;
             padding: 10px;
             border-radius: 50%;
             z-index: 3;

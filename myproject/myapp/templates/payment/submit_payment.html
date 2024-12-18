@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ارسال فیش پرداخت</title>
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f6fa;
+            color: #2d3436;
+            direction: rtl;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container h1 {
+            text-align: center;
+            color: #6c5ce7;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .container p {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #2d3436;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 16px;
+            color: #2d3436;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #fafafa;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"],
+        input[type="file"]:focus {
+            border-color: #6c5ce7;
+            outline: none;
+        }
+
+        button {
+            background-color: #00b894;
+            color: #ffffff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #6c5ce7;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* استایل کارت اعتباری */
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+        .credit-card-container {
+            position: relative;
+
+            background-size: cover;
+            padding: 25px;
+            border-radius: 28px;
+            background-color: lavender;
+            max-width: 380px;
+            color: black;
+            width: 100%;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .logo img {
+            width: 48px;
+            margin-right: 10px;
+        }
+
+        .card-details {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .number {
+            margin-top: 4px;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        .name {
+            margin-top: 20px;
+        }
+
+        .valid-date {
+            font-size: 10px;
+            color: #fff;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+{% include 'pannel/menu.html' %}
+<div class="container">
+    <h1>ارسال فیش پرداخت</h1>
+
+    <!-- نمایش پیام‌ها -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="{% if message.tags == 'success' %}success-message{% else %}error-message{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">ارسال فیش</button>
+    </form>
+<br>
+    <!-- کارت اعتباری -->
+    <p>لطفاً مبلغ مورد نظر را به شماره کارت زیر واریز کنید:</p>
+    <div class="credit-card-container">
+
+        <header>
+            <span class="logo">
+                <img src="images/logo.png" alt="" />
+                <h5>نام بانک</h5>
+            </span>
+            <img src="images/chip.png" alt="" class="chip" />
+        </header>
+
+        <div class="card-details">
+            <div class="name-number">
+                <h6>شماره کارت</h6>
+                <h5 class="number">8050 5040 2030 3020</h5>
+                <h5 class="name">اسم</h5>
+            </div>
+            <div class="valid-date">
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

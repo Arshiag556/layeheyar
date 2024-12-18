@@ -20,12 +20,6 @@ class ReceiptUploadForm(forms.ModelForm):
         label="موضوع"
     )
 
-    receipt_image = forms.FileField(
-        required=True,
-        label="آپلود تصویر رسید",
-        widget=forms.ClearableFileInput(attrs={'accept': 'image/jpeg, image/png, image/gif'})
-    )
-
     Letterattachment = forms.FileField(
         required=False,
         label="ضمیمه لایحه",
@@ -35,7 +29,7 @@ class ReceiptUploadForm(forms.ModelForm):
 
     class Meta:
         model = Document
-        fields = ['title','subject', 'text', 'receipt_image' ,'Letterattachment']
+        fields = ['title','subject', 'text' ,'Letterattachment']
 
 class assembly_form(forms.ModelForm):
     title = forms.CharField(
@@ -56,11 +50,6 @@ class assembly_form(forms.ModelForm):
         label="موضوع"
     )
 
-    receipt_image = forms.FileField(
-        required=True,
-        label="آپلود تصویر رسید",
-        widget=forms.ClearableFileInput(attrs={'accept': 'image/jpeg, image/png, image/gif'})
-    )
 
     Letterattachment = forms.FileField(
         required=False,
@@ -71,4 +60,4 @@ class assembly_form(forms.ModelForm):
 
     class Meta:
         model = assembly
-        fields = ['title','subject', 'text', 'receipt_image' ,'Letterattachment']
+        fields = ['title','subject', 'text','Letterattachment']

@@ -64,7 +64,7 @@ class Document(models.Model):
 
     # کاربری که لایحه را نوشته است (ارتباط با مدل User)
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
-    receipt_image = models.ImageField(upload_to='documents/receipt_image/')
+
     Letterattachment = models.FileField(upload_to='documents/Letterattachment/')
 
     # تاریخ ثبت لایحه
@@ -133,7 +133,7 @@ class assembly(models.Model):
 
     # کاربری که لایحه را نوشته است (ارتباط با مدل User)
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
-    receipt_image = models.ImageField(upload_to='documents/receipt_image/')
+
     Letterattachment = models.FileField(upload_to='documents/Letterattachment/')
 
     # تاریخ ثبت لایحه

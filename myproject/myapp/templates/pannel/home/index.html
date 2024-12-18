@@ -62,6 +62,84 @@
             margin-left: 10px;
         }
 
+        .notification-icon {
+            font-size: 2rem;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .notification-panel {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: #ffffff;
+            box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
+            transition: right 0.3s ease;
+            padding: 20px;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .notification-panel h4 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #e17055;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .notification-panel ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .notification-panel ul li {
+            padding: 15px 0;
+            border-bottom: 1px solid #dcdde1;
+            color: #2d3436;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .notification-panel ul li i {
+            color: #fdcb6e;
+            margin-left: 15px;
+            font-size: 1.2rem;
+        }
+
+        .notification-panel ul li span {
+            flex-grow: 1;
+            padding-left: 15px;
+            font-size: 0.95rem;
+            color: #636e72;
+        }
+
+        /* نمایش پنل اعلان */
+        .notification-panel.show {
+            right: 0;
+        }
+
+        .notification-badge {
+            position: relative; /* نمایش نشانگر در موقعیت خاص */
+            top: 10px; /* فاصله از بالای آیکون */
+            right:0px; /* فاصله از سمت راست آیکون */
+            background-color: red; /* رنگ پس‌زمینه قرمز */
+            color: white; /* رنگ متن سفید */
+            font-size: 12px; /* اندازه متن */
+            width: 20px; /* عرض نشانگر */
+            height: 20px; /* ارتفاع نشانگر */
+            border-radius: 50%; /* دایره‌ای شدن نشانگر */
+            display: flex; /* استفاده از Flexbox برای مرکز کردن متن */
+            justify-content: center; /* مرکز کردن متن افقی */
+            align-items: center; /* مرکز کردن متن عمودی */
+            font-weight: bold; /* ضخیم کردن فونت */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* سایه اطراف نشانگر */
+        }
+
         .card {
             background-color: #ffffff; /* رنگ کارت‌ها */
             border-radius: 10px;
@@ -365,12 +443,14 @@
 {% include 'pannel/menu.html' %}
 
 <div class="main-content">
-    <!-- هدر داشبورد -->
+
     <div class="header">
         <h1>{{ user.name }} {{ user.family }}</h1>
         <div class="user-info">
-
-
+            <i class="icon ion-md-notifications notification-icon" onclick="toggleNotificationPanel()"></i>
+            {% if unread_notifications_count %}
+                <span id="notification-count" class="notification-badge">{{ unread_notifications_count }}</span>
+            {% endif %}
         </div>
     </div>
 
@@ -415,19 +495,61 @@
 
     </div>
 
-    <!-- اعلان‌ها -->
-    <div class="notifications">
-        <h4>اعلان‌ها</h4>
-        <ul>
-            {% for notification in notifications %}
-                <li>{{ notification.message }}</li>
-            {% empty %}
-                <li>هیچ اعلان جدیدی وجود ندارد</li>
-            {% endfor %}
-        </ul>
-    </div>
+
 </div>
 
-
+<!-- پنل اعلان -->
+<div class="notification-panel" id="notificationPanel">
+    <h4>اعلان‌ها</h4>
+    <ul>
+        {% for notification in notifications %}
+            <li><i class="icon ion-md-notifications"></i><span>{{ notification.message }}</span></li>
+        {% empty %}
+            <li><i class="icon ion-md-notifications"></i><span>هیچ اعلان جدیدی وجود ندارد</span></li>
+        {% endfor %}
+    </ul>
+</div>
 </body>
+<script>
+    // باز کردن و بستن پنل اعلان
+    function toggleNotificationPanel(event) {
+        // درخواست به سرور برای به‌روزرسانی وضعیت اعلان‌ها (خوانده شده)
+        fetch('/mark-notifications-as-read/')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const badge = document.getElementById('notification-count');
+                    if (badge) {
+                        badge.style.display = 'none'; // مخفی کردن badge پس از خواندن اعلان‌ها
+                    }
+                }
+            });
+
+        event.stopPropagation(); // جلوگیری از بسته شدن پنل هنگام کلیک روی آیکون
+        const panel = document.getElementById('notificationPanel');
+        if (panel) {
+            panel.classList.toggle('show');
+        }
+    }
+
+    // بستن پنل اعلان هنگام کلیک خارج از آن
+    function closeNotificationPanel(event) {
+        const panel = document.getElementById('notificationPanel');
+        const icon = document.querySelector('.notification-icon');
+        // چک کردن که آیا کلیک در داخل پنل اعلان یا آیکون انجام شده است یا نه
+        if (panel && !panel.contains(event.target) && event.target !== icon) {
+            panel.classList.remove('show');
+        }
+    }
+
+    // اضافه کردن رویداد کلیک به کل صفحه برای بستن پنل
+    document.addEventListener('click', closeNotificationPanel);
+
+    // اضافه کردن رویداد کلیک روی آیکون برای باز کردن پنل
+    const notificationIcon = document.querySelector('.notification-icon');
+    if (notificationIcon) {
+        notificationIcon.addEventListener('click', toggleNotificationPanel);
+    }
+</script>
+
 </html>

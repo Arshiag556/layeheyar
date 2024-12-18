@@ -42,6 +42,8 @@ class UserManager(BaseUserManager):
 
 class UserAccount(AbstractBaseUser):
     phone_number = models.CharField(max_length=15, default='0000000000', unique=True, verbose_name="شماره تلفن")
+    card_number = models.CharField(max_length=16, null=True, blank=True)  # شماره کارت کاربر
+    balance = models.DecimalField(max_digits=10, decimal_places=0, default=0)  # موجودی حساب
     name = models.CharField(max_length=100, verbose_name="نام")
     family = models.CharField(max_length=100, verbose_name="نام خانوادگی")
     state = models.CharField(max_length=150, blank=True, null=True, verbose_name="استان")
@@ -84,6 +86,7 @@ class UserAccount(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+
     def save(self, *args, **kwargs):
         if self.password and not self.password.startswith('pbkdf2_sha256$'):
             self.set_password(self.password)  # هش کردن رمز عبور
@@ -100,6 +103,7 @@ class Notification(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
+    is_read = models.BooleanField(default=False)  # فیلد برای نشان دادن وضعیت خوانده‌شده
     message_type = models.CharField(max_length=10, choices=MESSAGE_TYPES, default='public')
     users = models.ManyToManyField(UserAccount, related_name='notifications', blank=True)  # کاربران خاص که اعلان رو می‌بینند
 
@@ -110,3 +114,14 @@ class Notification(models.Model):
             user = self.users.first()
             return f"Notification for {user.phone_number} - {self.message[:20]}"
         return self.message[:20]
+
+class Payment(models.Model):
+    account = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    card_number=models.CharField(max_length=15, null=True, blank=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    receipt_image = models.ImageField(upload_to='receipts/')
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Payment by {self.account.phone_number} - {self.amount} - Approved: {self.is_approved}"
